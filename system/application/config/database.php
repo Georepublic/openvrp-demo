@@ -37,11 +37,11 @@
 $active_group = "default";
 $active_record = TRUE;
 
-$db['default']['hostname'] = "localhost";
+$db['default']['hostname'] = "127.0.0.1";
 $db['default']['username'] = "postgres";
 $db['default']['password'] = "";
 $db['default']['database'] = "mobility";
-$db['default']['dbdriver'] = "postgres";
+$db['default']['dbdriver'] = "postgre";
 $db['default']['port']     = 5432;
 $db['default']['dbprefix'] = "";
 $db['default']['pconnect'] = TRUE;

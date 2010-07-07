@@ -11,7 +11,7 @@
 |	http://example.com/
 |
 */
-$config['base_url']	= "http://localhost/mobility/";
+$config['base_url']	= "http://127.0.0.1/mobility/";
 
 /*
 |--------------------------------------------------------------------------

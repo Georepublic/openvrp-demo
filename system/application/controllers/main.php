@@ -5,19 +5,22 @@ class Main extends Controller {
 	function Main()
 	{
 		parent::Controller();
-		
-		$this->load->helper('url');
 	}
 
 	function index()
 	{
-		$data['title']   = "Hello Title";
-		$data['heading'] = "Hello Heading";
+	    if ($this->session->userdata('logged_in') != TRUE)
+	    {
+	        redirect('login/index');
+	    }
+
+		$data['title']   = "Hello World";
+		$data['account'] = $this->session->userdata('username');
 		$data['todo']    = array('Germany', 'Spain', 'Netherlands');
 		
-		$this->load->view('main_view', $data);
+		$this->load->view('main', $data);
 	}
 }
 
-
 ?>
+

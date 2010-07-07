@@ -38,7 +38,8 @@
 </head>
 
 <body>
-	<h1><?=$heading?></h1>
+	<h1>Hello <?=$account?>!</h1>
+	<p><?=anchor('login/logout', 'Logout');?></p>
 	
 	<div id="gxmap"></div> 
 	
