@@ -1,38 +1,57 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?=$language?>" lang="<?=$language?>">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
- 	<title><?=$title?></title>	
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<meta http-equiv="Content-Language" content="<?=$language?>"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Mobility Manager 0.1</title>
 
-	<script src="<?=base_url();?>resources/ext-3.2.1/adapter/ext/ext-base.js" type="text/javascript"></script> 
-	<script src="<?=base_url();?>resources/ext-3.2.1/ext-all.js"  type="text/javascript"></script> 
-	<link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/ext-3.2.1/resources/css/ext-all.css" /> 
+	<link rel="shortcut icon" href="<?=base_url();?>resources/images/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/ext-3.2.1/resources/css/ext-all.css" />
+	<link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/ext-3.2.1/resources/css/xtheme-gray.css" />
+	<link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/css/main.css" />
 </head>
 
 <body>
-	<script type="text/javascript"> 
-		
-	Ext.BLANK_IMAGE_URL = '<?=base_url();?>resources/ext-3.2.1/resources/images/default/s.gif';
+	<div id="loading">
+	    <div class="loading-indicator">
+	    	<img src="<?=base_url();?>resources/images/loading-icon.gif"/>
+			<span id="loading-title">
+				<script type="text/javascript">
+					document.write("Mobility Manager 0.1");
+				</script>
+			</span><br/>
+			<span id="loading-msg">
+				<script type="text/javascript">
+					document.write("Loading CSS ...");
+				</script>
+			</span>
+		</div>
+	</div>		
 	
+	<script type="text/javascript">document.getElementById('loading-msg').innerHTML = "Loading ExtJS ..."</script>
+	<script type="text/javascript" src="<?=base_url();?>resources/ext-3.2.1/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="<?=base_url();?>resources/ext-3.2.1/ext-all.js"></script>
+	
+	<script type="text/javascript">document.getElementById('loading-msg').innerHTML = "Initialize ..."</script>
+	<script type="text/javascript">
+	
+	Ext.BLANK_IMAGE_URL = '<?=base_url();?>resources/ext-3.2.1/resources/images/default/s.gif';
+
 	Ext.onReady(function() {
-		
-	    Ext.QuickTips.init();
+	
+		Ext.QuickTips.init();
 		Ext.form.Field.prototype.msgTarget = 'side';
-		
-	    var login = new Ext.FormPanel({ 
-	        monitorValid: true,
+	
+		var login = new Ext.FormPanel({ 
+		    monitorValid: true,
 			standardSubmit: true,
-	        onSubmit: Ext.emptyFn,
-	        url: 'login/process', 
-	        frame: true, 
-	        width: 300,
-	        autoHeight:true,
-	        labelWidth: 80,
+		    onSubmit: Ext.emptyFn,
+		    url: 'login/process', 
+		    frame: true, 
+		    width: 300,
+		    autoHeight:true,
+		    labelWidth: 80,
 			bodyStyle: 'padding:15px;',
-	        items:[{
+		    items:[{
 				xtype: 'panel',
 				height: 40,
 				html: "<?=$this->session->flashdata('message');?>" || "<b>Please fill in your username and password und click the login button.</b>"
@@ -49,28 +68,41 @@
 				inputType: 'password', 
 				allowBlank: false 
 			}],
-	        buttons:[{ 
+		    buttons:[{ 
 				text: "Login",
 				formBind: true,	
 				name: 'login', 
 				/*iconCls: 'button-icon-door-in',*/
 				handler: function(){ 
-				    login.getForm().submit(); 
+					login.getForm().submit(); 
 				}
 			}], 
 			keys: [{
 				key: Ext.EventObject.ENTER,
 				fn: function(){ 
-				    login.getForm().submit(); 
+					login.getForm().submit(); 
 				}
 			}]
-	    });
-		
-		var win = new Ext.Window({ title:"Login", items: [login] });
+		});
+	
+		var win = new Ext.Window({ 
+			title:"Mobility Manager 0.1 - Login", 
+			modal: true,
+			closable: false,
+			resizable: false,
+			draggable: false,
+			listeners : {
+				afterlayout: function() {
+					Ext.get('loading').hide();
+				}
+			},
+			items: [login] 
+		});
 		win.show();
 
 		Ext.getCmp('userField').focus();
 	});
+	
 	</script> 
 </body>
 </html>

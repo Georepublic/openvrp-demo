@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/metacrs/!svn/ver/1653/proj4js/trunk/build
+END
+license.txt
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/metacrs/!svn/ver/1653/proj4js/trunk/build/license.txt
+END
+library.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/metacrs/!svn/ver/2/proj4js/trunk/build/library.cfg
+END
+build.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/metacrs/!svn/ver/1523/proj4js/trunk/build/build.py
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/metacrs/!svn/ver/2/proj4js/trunk/build/README.txt
+END
+build.xml
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/metacrs/!svn/ver/44/proj4js/trunk/build/build.xml
+END
+buildUncompressed.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/metacrs/!svn/ver/1523/proj4js/trunk/build/buildUncompressed.py
+END

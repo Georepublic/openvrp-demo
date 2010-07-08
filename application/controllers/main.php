@@ -14,8 +14,9 @@ class Main extends Controller {
 
 	function index()
 	{
-		$data['title']   = "Hello World";
-		$data['account'] = $this->session->userdata('username');
+		$data['title']    = "Hello World";
+		$data['account']  = $this->session->userdata('username');
+	    $data['language'] = 'en';
 		
 		$this->load->view('main_view', $data);
 	}

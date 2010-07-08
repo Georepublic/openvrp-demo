@@ -1,0 +1,89 @@
+body {
+	
+}
+
+#loading{
+	position:absolute;
+	left:40%;
+	top:40%;
+	padding:1px;
+	z-index:20001;
+	border: 1px solid #999999;
+	width: 250px;
+}
+
+#loading .loading-indicator{
+	background: #EFEFFF;
+	color: #444444;
+	font-weight: bold;
+	font-size:  13px;
+	line-height: 22px;
+	padding: 10px;
+	margin: 0;
+}
+
+#loading .loading-indicator img{
+	margin-right: 10px;
+	float: left;
+	vertical-align: top;
+	height: 48px;
+}
+
+#loading-msg {
+	font-weight: normal;
+}
+
+/*
+* Silk and GeoSilk icons used here
+* are under Creative Commons Attribution 2.5 License.
+*
+* http://www.famfamfam.com/lab/icons/silk/
+* http://projects.opengeo.org/geosilk
+*/
+.button-icon-shortest-path {
+  background-image:url(../img/route.png) !important;
+}
+
+.button-icon-driving-distance {
+  background-image:url(../img/dd.png) !important;
+}
+
+.button-icon-traveling-salesperson {
+  background-image:url(../img/traveling_salesperson.png) !important;
+}
+
+.button-icon-geocode {
+  background-image:url(../img/geocode.png) !important;
+}
+
+.button-icon-profile-info {
+  background-image:url(../img/profile_info.png) !important;
+}
+
+.button-icon-default-reset {
+  background-image:url(../img/cross.png) !important;
+}
+
+.button-icon-geocode-locate {
+  background-image:url(../img/world_go.png) !important;
+}
+
+.button-icon-start-flag {
+  background-image:url(../img/start_flag.png) !important;
+}
+.button-icon-start-add {
+  background-image:url(../img/start_add.png) !important;
+}
+.button-icon-start-delete {
+  background-image:url(../img/start_delete.png) !important;
+}
+
+.button-icon-final-flag {
+  background-image:url(../img/final_flag.png) !important;
+}
+.button-icon-final-add {
+  background-image:url(../img/final_add.png) !important;
+}
+.button-icon-final-delete {
+  background-image:url(../img/final_delete.png) !important;
+}

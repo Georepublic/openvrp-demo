@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/metacrs/!svn/ver/1518/proj4js/trunk/tools
+END
+mkpjcat.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/metacrs/!svn/ver/26/proj4js/trunk/tools/mkpjcat.py
+END
+toposort.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/metacrs/!svn/ver/2/proj4js/trunk/tools/toposort.py
+END
+jsmin.c
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/metacrs/!svn/ver/2/proj4js/trunk/tools/jsmin.c
+END
+mergejs.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/metacrs/!svn/ver/2/proj4js/trunk/tools/mergejs.py
+END
+jsmin.py
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/metacrs/!svn/ver/2/proj4js/trunk/tools/jsmin.py
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/metacrs/!svn/ver/2/proj4js/trunk/tools/README.txt
+END
+pjjs.py
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/metacrs/!svn/ver/26/proj4js/trunk/tools/pjjs.py
+END

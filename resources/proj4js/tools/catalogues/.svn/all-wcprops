@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/metacrs/!svn/ver/1518/proj4js/trunk/tools/catalogues
+END
+IGNF
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/metacrs/!svn/ver/1518/proj4js/trunk/tools/catalogues/IGNF
+END
+CRS
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/metacrs/!svn/ver/26/proj4js/trunk/tools/catalogues/CRS
+END
+EPSG
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/metacrs/!svn/ver/26/proj4js/trunk/tools/catalogues/EPSG
+END
