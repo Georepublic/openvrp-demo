@@ -14,9 +14,10 @@ class Login extends Controller {
 	    }
 
 	    $data['title'] = 'Login Page';
+	    $data['language'] = 'en';
 	    $data['username'] = array('id' => 'username', 'name' => 'username');
 	    $data['password'] = array('id' => 'password', 'name' => 'password');	
-	            
+	    
 	    $this->load->view('login_view', $data);
 	}
 
@@ -38,7 +39,7 @@ class Login extends Controller {
 	    } 
 	    else 
 	    {
-	        $this->session->set_flashdata('message', '<div id="message">Oops, it seems your username or password is incorrect, please try again.</div>');
+	        $this->session->set_flashdata('message', "<b style='color:red;'>Oops, it seems your username or password is incorrect, please try again.</b>");
 	        redirect('login');
 	    }
 	}
