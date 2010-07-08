@@ -15,8 +15,9 @@ class Login extends Controller {
 
 	    $data['title'] = 'Login Page';
 	    $data['username'] = array('id' => 'username', 'name' => 'username');
-	    $data['password'] = array('id' => 'password', 'name' => 'password');	        
-	    $this->load->view('login', $data);
+	    $data['password'] = array('id' => 'password', 'name' => 'password');	
+	            
+	    $this->load->view('login_view', $data);
 	}
 
 	function process()

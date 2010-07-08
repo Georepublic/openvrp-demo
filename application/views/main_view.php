@@ -7,15 +7,16 @@
 
  	<title><?=$title?></title>	
 
-	<script src="<?=base_url();?>/resources/ext-3.2.1/adapter/ext/ext-base.js" type="text/javascript"></script> 
-	<script src="<?=base_url();?>/resources/ext-3.2.1/ext-all.js"  type="text/javascript"></script> 
-	<link rel="stylesheet" type="text/css" href="<?=base_url();?>/resources/ext-3.2.1/resources/css/ext-all.css"></link> 
+	<script src="<?=base_url();?>resources/ext-3.2.1/adapter/ext/ext-base.js" type="text/javascript"></script> 
+	<script src="<?=base_url();?>resources/ext-3.2.1/ext-all.js"  type="text/javascript"></script> 
+	<link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/ext-3.2.1/resources/css/ext-all.css" /> 
 
-	<script src="<?=base_url();?>/resources/openlayers-2.9.1/lib/OpenLayers.js" type="text/javascript"></script> 
-	<script src="<?=base_url();?>/resources/geoext-0.7/lib/GeoExt.js" type="text/javascript"></script> 
-	<link rel="stylesheet" type="text/css" href="<?=base_url();?>/resources/geoext-0.7/resources/geoext-all-debug.css"></link> 
-	 
+	<script src="<?=base_url();?>resources/openlayers-2.9.1/lib/OpenLayers.js" type="text/javascript"></script> 
+	<script src="<?=base_url();?>resources/geoext-0.7/lib/GeoExt.js" type="text/javascript"></script>  
+	<link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/geoext-0.7/resources/css/geoext-all-debug.css" />
+
 	<script type="text/javascript"> 
+	
 		Ext.onReady(function() {
 		    var map = new OpenLayers.Map();
 		    var layer = new OpenLayers.Layer.WMS(
@@ -32,6 +33,7 @@
 		        map: map,
 		        title: 'A Simple GeoExt Map'
 		    });
+		    
 		});
 	</script> 
 
@@ -39,16 +41,9 @@
 
 <body>
 	<h1>Hello <?=$account?>!</h1>
-	<p><?=anchor('login/logout', 'Logout');?></p>
 	
 	<div id="gxmap"></div> 
-	
-	<ol>
-	<?php foreach($todo as $item): ?>
-	
-		<li><?=$item?></li>
-		
-	<?php endforeach; ?>
-	</ol>
+
+	<p><?=anchor('login/logout', 'Logout');?></p>
 </body>
 </html>
