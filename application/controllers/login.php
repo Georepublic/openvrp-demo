@@ -24,9 +24,13 @@ class Login extends Controller {
 	function process()
 	{
 	    $username = $this->input->post('username');    
-	    $password  = $this->input->post('password');
+	    $password = $this->input->post('password');
+	    
+	    $this->db->where('name', $username);
+	    $this->db->where('pass', md5($password));
+	    $count = $this->db->count_all_results('account');
 
-	    if ($username == 'daniel' AND $password == 'kastl')
+	    if ($count > 0)
 	    {
 	        $data = array(
                    'username'  => $username,

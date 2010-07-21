@@ -5,29 +5,102 @@ class Vehicle extends Controller {
 	function Vehicle()
 	{
 		parent::Controller();
-		
-		$this->load->scaffolding('vehicle');
+
+	    if($this->session->userdata('logged_in') != TRUE)
+	    {
+	        redirect('login');
+	    }
+
+		$this->output->set_header("Cache-Control: no-cache, must-revalidate");
+		$this->output->set_header("Content-Type: application/jsonrequest");		
 	}
 
 	function index()
 	{
-		//$this->load->view('vehicle_view', $data);
-		echo "vehicle";
+		$this->output->set_output("Error: bad request.");
 	}
 
-	function create()
+	/**
+	 * Get feature(s)
+	 */ 
+	function find()
 	{
-		echo "create";
+		if($this->uri->segment(3) !== FALSE)
+		{
+			$this->db->where('vehicle_id', $id = $this->uri->segment(3));
+		}
+		
+		$query = $this->db->get('vehicle');
+		$this->output->set_output($this->_encode($query));
 	}
 
-	function update()
-	{
-		echo "update";
+	/**
+	 * Create feature
+	 */ 
+	function create() {
+		$data = array(
+		   'name'   => $this->input->post('name'),
+		   'capacity' => $this->input->post('capacity'),
+		   'depot_id' => $this->input->post('depot_id')
+		);
+		$this->db->set($data); 
+		$this->db->insert('vehicle'); 
+		$this->output->set_output("{success: true}");
 	}
 
-	function delete()
+	/**
+	 * Update feature
+	 */ 
+	function update() { 
+		$data = array(
+		   'name'   => $this->input->post('name'),
+		   'capacity' => $this->input->post('capacity'),
+		   'depot_id' => $this->input->post('depot_id'),
+		   'updated' => 'now()'
+		);
+		$this->db->where('vehicle_id', $id = $this->uri->segment(3));
+		$this->db->update('vehicle', $data); 
+		$this->output->set_output("{success: true}");
+	}
+	
+	/**
+	 * Delete feature
+	 */ 
+	function delete() { 
+		$this->db->where('vehicle_id', $id = $this->uri->segment(3));
+		$this->db->delete('vehicle'); 
+		$this->output->set_output("{success: true}");
+	}
+	
+	/**
+	 * Build GeoJSON object for "vehicle"
+	 */ 
+	function _encode($query)
 	{
-		echo "delete";
+		$json = array(
+			"type"     => "FeatureCollection",
+			"features" => array()
+		);
+		
+		foreach ($query->result() as $row)
+		{
+			$feature = array(
+				"type"        => "Feature",
+				"properties"  => array(
+					"vehicle_id" => $row->vehicle_id,
+					"name"       => $row->name,
+					"capacity"   => $row->capacity,
+					"depot_id"   => $row->depot_id,
+					"created"    => $row->created,
+					"updated"    => $row->updated
+				),
+				"vehicle_id"     => $row->vehicle_id
+			);
+			
+			array_push($json["features"], $feature);
+		}
+		
+		return json_encode($json);
 	}
 }
 
