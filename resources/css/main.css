@@ -40,50 +40,50 @@ body {
 * http://www.famfamfam.com/lab/icons/silk/
 * http://projects.opengeo.org/geosilk
 */
-.button-icon-shortest-path {
-  background-image:url(../img/route.png) !important;
+.button-login {
+  background-image:url(../images/icon_red_car.png) !important;
 }
 
-.button-icon-driving-distance {
-  background-image:url(../img/dd.png) !important;
+.button-set-point {
+  background-image:url(../images/start_add.png) !important;
 }
 
-.button-icon-traveling-salesperson {
-  background-image:url(../img/traveling_salesperson.png) !important;
+.button-delete {
+  background-image:url(../images/database_delete.png) !important;
 }
 
-.button-icon-geocode {
-  background-image:url(../img/geocode.png) !important;
+.button-save {
+  background-image:url(../images/database_save.png) !important;
 }
 
-.button-icon-profile-info {
-  background-image:url(../img/profile_info.png) !important;
+.button-add {
+  background-image:url(../images/database_add.png) !important;
 }
 
-.button-icon-default-reset {
-  background-image:url(../img/cross.png) !important;
+.button-clear {
+  background-image:url(../images/cross.png) !important;
 }
 
-.button-icon-geocode-locate {
-  background-image:url(../img/world_go.png) !important;
+.button-calc {
+  background-image:url(../images/calculator.png) !important;
 }
 
-.button-icon-start-flag {
-  background-image:url(../img/start_flag.png) !important;
-}
-.button-icon-start-add {
-  background-image:url(../img/start_add.png) !important;
-}
-.button-icon-start-delete {
-  background-image:url(../img/start_delete.png) !important;
+.tab-fleet {
+  background-image:url(../images/icon_red_car.png) !important;
 }
 
-.button-icon-final-flag {
-  background-image:url(../img/final_flag.png) !important;
+.tab-order {
+  background-image:url(../images/icon_tickets.png) !important;
 }
-.button-icon-final-add {
-  background-image:url(../img/final_add.png) !important;
+
+.tab-depot {
+  background-image:url(../images/icon_depot_small.png) !important;
 }
-.button-icon-final-delete {
-  background-image:url(../img/final_delete.png) !important;
+
+.tab-planner {
+  background-image:url(../images/trip_planner.png) !important;
+}
+
+.tab-user {
+  background-image:url(../images/user_icon.png) !important;
 }

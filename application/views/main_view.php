@@ -29,64 +29,141 @@
 	</div>		
 	
 	<script type="text/javascript">document.getElementById('loading-msg').innerHTML = "Loading OpenLayers ..."</script>
-	<script type="text/javascript" src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAAXRQTsj9_bEUYstPWwJ4iOBR0n6wdtRn3aS13_s93gCCDNKnYOhTWTI0apiNy8GvBRpxiDe5WFcX3_A"></script>
 	<script type="text/javascript" src="<?=base_url();?>resources/proj4js/lib/proj4js-combined.js"></script>
-	<script type="text/javascript" src="<?=base_url();?>resources/openlayers-2.9.1/lib/OpenLayers.js"></script>
+	<script type="text/javascript" src="<?=base_url();?>resources/openlayers-2.9.1/OpenLayers.js"></script>
 
 	<script type="text/javascript">document.getElementById('loading-msg').innerHTML = "Loading ExtJS ..."</script>
 	<script type="text/javascript" src="<?=base_url();?>resources/ext-3.2.1/adapter/ext/ext-base.js"></script>
 	<script type="text/javascript" src="<?=base_url();?>resources/ext-3.2.1/ext-all.js"></script>
+	<script type="text/javascript" src="<?=base_url();?>resources/mm-0.1/ext.ux.datetime.js"></script>  
 	
 	<script type="text/javascript">document.getElementById('loading-msg').innerHTML = "Loading GeoExt ..."</script>
-	<script type="text/javascript" src="<?=base_url();?>resources/geoext-0.7/lib/GeoExt.js"></script>  
+	<script type="text/javascript" src="<?=base_url();?>resources/geoext-0.7/script/GeoExt.js"></script>  
 	
 	<script type="text/javascript">document.getElementById('loading-msg').innerHTML = "Initialize ..."</script>
-	<script type="text/javascript" src="<?=base_url();?>resources/beautify/beautify.js" ></script>
+	<!--script type="text/javascript" src="<?=base_url();?>resources/beautify/beautify.js" ></script-->
+
+	<script type="text/javascript">	
+		Ext.ns('GRP');
+		Ext.ns('GRP.store');
+		Ext.ns('GRP.layer');
+		Ext.ns('GRP.grid');
+		Ext.ns('GRP.form');
+		Ext.ns('GRP.tab');
+		Ext.ns('GRP.menu');
+		
+		var wkt = new OpenLayers.Format.WKT();
+
+		GRP.baseURL = "<?=base_url();?>";
+		
+		Ext.BLANK_IMAGE_URL = '<?=base_url();?>resources/ext-3.2.1/resources/images/default/s.gif';
+
+		OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
+		OpenLayers.Util.onImageLoadErrorColor = 'transparent';	
+		
+   	</script> 
+
+	<script type="text/javascript" src="<?=base_url();?>resources/mm-0.1/map.geography.js"></script>  
+	<script type="text/javascript" src="<?=base_url();?>resources/mm-0.1/map.account.js"></script>  
+	<script type="text/javascript" src="<?=base_url();?>resources/mm-0.1/map.depot.js"></script>  
+	<script type="text/javascript" src="<?=base_url();?>resources/mm-0.1/map.vehicle.js"></script>  
+	<script type="text/javascript" src="<?=base_url();?>resources/mm-0.1/map.order.js"></script>  
+	<script type="text/javascript" src="<?=base_url();?>resources/mm-0.1/map.planner.js"></script>  
+	
 	<script type="text/javascript">
 	
-	Ext.BLANK_IMAGE_URL = '<?=base_url();?>resources/ext-3.2.1/resources/images/default/s.gif';
-
 	Ext.onReady(function() {
 	
-		OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
-		OpenLayers.Util.onImageLoadErrorColor = 'transparent';
-		//OpenLayers.ProxyHost = 'proxy.php?url=http://foss4g.orkney.jp/1.1.0';
-
 		Ext.QuickTips.init();
 		Ext.form.Field.prototype.msgTarget = 'side';
-
-		var map = new OpenLayers.Map();
-		var layer = new OpenLayers.Layer.WMS(
-		    "Global Imagery",
-		    "http://maps.opengeo.org/geowebcache/service/wms",
-		    {layers: "bluemarble"}
-		);
-		map.addLayer(layer);
-
-		new Ext.Viewport({
-		    layout: "border",
+		
+		/**
+		 * Viewport Layout 
+		 */
+		var viewport = new Ext.Viewport({
+			layout: 'border',
+			renderTo: Ext.getBody(),
 			listeners : {
 				afterlayout: function() {
 					Ext.get('loading').hide();
 				}
 			},
-		    items: [{
-		        region: "center",
-		        id: "mappanel",
-		        title: "Mobility Manager 0.1 - Map",
-		        xtype: "gx_mappanel",
-		        map: map,
-		        layers: [layer],
+			items: [{
+				xtype: 'panel',
+				region: 'center',
+				layout: 'border',
+				border: false,
+				tbar: new Ext.Toolbar({
+					items: [
+						"->", { xtype: "tbtext", text: 'Current user: [<?=$account?>] | <?=anchor("login/logout", "Logout");?>' } 
+					]
+				}),				
 				bbar: new Ext.Toolbar({
 					items: [
-						{ xtype: 'tbtext', text: "User: [<?=$account?>]" }, '->',
-						{ xtype: 'tbtext', text: '<?=anchor("login/logout", "Logout");?>' }
+						{ xtype: "tbtext", text: "Mobility Manager - Prototype &copy;2010" },"->",
+						{ xtype: "tbtext", text: 'Data/Maps Copyright 2010 <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap and contributors</a> | License: <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">Creative Commons BY-SA</a>' } 
 					]
-				})
-		    }]
+				}),				
+				items: [{
+					region: 'north',
+					html: '<h3 style="margin:20px;">Mobility Manager - Protoype 0.1</h3>',
+					height: 60
+				},{
+					region: 'center',
+					xtype: 'tabpanel',
+					header: false,
+					activeTab: 0, 
+					border: false,
+					items: [
+						GRP.tab.planner,
+						GRP.tab.order,
+						GRP.tab.depot, 
+						GRP.tab.vehicle, 
+						GRP.tab.account
+					],
+					listeners: {
+						beforetabchange: function(panel, newtab, curtab){
+							try{
+								GRP.store[newtab.id].load();
+							}
+							catch(e){}
+							
+							GRP.layer.order.modifyControl.deactivate();
+							GRP.layer.depot.modifyControl.deactivate();
+						}
+					}
+				}, 
+				GRP.mapPanel]
+			}]
 		});
+		
 	});
 	
+	/**
+	 * OSM getTileURL calculation
+	 */
+	GRP.getTileURL = function(bounds) {
+		var res = this.map.getResolution();
+		var x = Math.round((bounds.left - this.maxExtent.left) / (res * this.tileSize.w));
+		var y = Math.round((this.maxExtent.top - bounds.top) / (res * this.tileSize.h));
+		var z = this.map.getZoom();
+		var limit = Math.pow(2, z);
+		
+		if (y < 0 || y >= limit){
+			return null;
+		}
+		else {
+			x = ((x % limit) + limit) % limit;
+			
+			var url = this.url;
+			var path = z + "/" + x + "/" + y + ".png";
+			
+			if (url instanceof Array) {
+				url = this.selectUrl(path, url);
+			}
+			return url + path;
+		}
+	}
 	</script> 
 </body>
 </html>

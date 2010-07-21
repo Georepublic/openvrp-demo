@@ -37,8 +37,8 @@
 $active_group = "default";
 $active_record = TRUE;
 
-$db['default']['hostname'] = "127.0.0.1";
-$db['default']['username'] = "postgres";
+$db['default']['hostname'] = "demoserver.eq6.georepublic.net";
+$db['default']['username'] = "georepublic";
 $db['default']['password'] = "";
 $db['default']['database'] = "mobility";
 $db['default']['dbdriver'] = "postgre";

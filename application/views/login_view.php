@@ -47,7 +47,7 @@
 		    onSubmit: Ext.emptyFn,
 		    url: 'login/process', 
 		    frame: true, 
-		    width: 300,
+		    width: 350,
 		    autoHeight:true,
 		    labelWidth: 80,
 			bodyStyle: 'padding:15px;',
@@ -71,8 +71,7 @@
 		    buttons:[{ 
 				text: "Login",
 				formBind: true,	
-				name: 'login', 
-				/*iconCls: 'button-icon-door-in',*/
+				iconCls: 'button-login',
 				handler: function(){ 
 					login.getForm().submit(); 
 				}
