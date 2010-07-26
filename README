@@ -1,0 +1,11 @@
+#
+# About:
+# =====
+# Source, data and docs for the mm demo.
+# <Introduction comes here>
+#
+
+# Install notes:
+# =============
+
+- this application reqires a database (currently database deply script not included)
