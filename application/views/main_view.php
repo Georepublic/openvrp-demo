@@ -7,6 +7,8 @@
 	<link rel="shortcut icon" href="<?=base_url();?>resources/images/favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/ext-3.2.1/resources/css/ext-all.css" />
 	<link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/ext-3.2.1/resources/css/xtheme-gray.css" />
+    <link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/ext-3.2.1/examples/ux/gridfilters/css/GridFilters.css" />
+    <link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/ext-3.2.1/examples/ux/gridfilters/css/RangeMenu.css" />
 	<link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/geoext-0.7/resources/css/geoext-all.css" />
 	<link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/css/main.css" />
 </head>
@@ -36,6 +38,16 @@
 	<script type="text/javascript" src="<?=base_url();?>resources/ext-3.2.1/adapter/ext/ext-base.js"></script>
 	<script type="text/javascript" src="<?=base_url();?>resources/ext-3.2.1/ext-all.js"></script>
 	<script type="text/javascript" src="<?=base_url();?>resources/mm-0.1/ext.ux.datetime.js"></script>  
+	<script type="text/javascript" src="<?=base_url();?>resources/ext-3.2.1/examples/ux/gridfilters/menu/RangeMenu.js"></script>
+	<script type="text/javascript" src="<?=base_url();?>resources/ext-3.2.1/examples/ux/gridfilters/menu/ListMenu.js"></script>
+	
+	<script type="text/javascript" src="<?=base_url();?>resources/ext-3.2.1/examples/ux/gridfilters/GridFilters.js"></script>
+	<script type="text/javascript" src="<?=base_url();?>resources/ext-3.2.1/examples/ux/gridfilters/filter/Filter.js"></script>
+	<script type="text/javascript" src="<?=base_url();?>resources/ext-3.2.1/examples/ux/gridfilters/filter/StringFilter.js"></script>
+	<script type="text/javascript" src="<?=base_url();?>resources/ext-3.2.1/examples/ux/gridfilters/filter/DateFilter.js"></script>
+	<script type="text/javascript" src="<?=base_url();?>resources/ext-3.2.1/examples/ux/gridfilters/filter/ListFilter.js"></script>
+	<script type="text/javascript" src="<?=base_url();?>resources/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
+	<script type="text/javascript" src="<?=base_url();?>resources/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	
 	<script type="text/javascript">document.getElementById('loading-msg').innerHTML = "Loading GeoExt ..."</script>
 	<script type="text/javascript" src="<?=base_url();?>resources/geoext-0.7/script/GeoExt.js"></script>  
@@ -50,7 +62,6 @@
 		Ext.ns('GRP.grid');
 		Ext.ns('GRP.form');
 		Ext.ns('GRP.tab');
-		Ext.ns('GRP.menu');
 		
 		var wkt = new OpenLayers.Format.WKT();
 

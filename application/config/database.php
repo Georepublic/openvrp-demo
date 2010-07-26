@@ -37,7 +37,7 @@
 $active_group = "default";
 $active_record = TRUE;
 
-$db['default']['hostname'] = "demoserver.eq6.georepublic.net";
+$db['default']['hostname'] = "localhost";
 $db['default']['username'] = "georepublic";
 $db['default']['password'] = "";
 $db['default']['database'] = "mobility";

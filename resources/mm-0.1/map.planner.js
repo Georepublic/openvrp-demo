@@ -6,11 +6,26 @@ Ext.onReady(function() {
 	/**
 	 * Layer Definition
 	 */
-	GRP.layer.planner = new OpenLayers.Layer.Vector( "Darp", {
-		displayInLayerSwitcher: false
+	var plannerStyle = new OpenLayers.StyleMap({
+			'default': OpenLayers.Util.applyDefaults({
+					pointRadius: 12
+				}, OpenLayers.Feature.Vector.style["default"]), 
+			'select': {
+				pointRadius: 16
+			}
+		});	
+	plannerStyle.addUniqueValueRules("default", "pick_up", {
+		"t": {fillColor: 'green', strokeColor: 'green'},
+		"f": {fillColor: 'red', strokeColor: 'red'}
+	});
+
+	GRP.layer.planner = new OpenLayers.Layer.Vector( "Planner", {
+		styleMap: plannerStyle
 	});
 	GRP.map.addLayer(GRP.layer.planner);
 
+	GRP.layer.route = new OpenLayers.Layer.Vector( "Route");
+	GRP.map.addLayer(GRP.layer.route);
 	
 	/**
 	 * Store Definition
@@ -23,13 +38,43 @@ Ext.onReady(function() {
 		]
 	});
 
+	GRP.store.nearest = new Ext.data.SimpleStore({
+		fields: ['nearest', 'name'],
+		autoLoad: true,
+		data : [
+			[ '*', 'All orders' ],
+			[ '10', 'Nearest 10 orders' ],
+			[ '20', 'Nearest 20 orders' ],
+			[ '40', 'Nearest 40 orders' ]
+		]
+	});
+
 	GRP.store.planner = new GeoExt.data.FeatureStore({
 		layer: GRP.layer.planner,
 		fields: [
 			{name: 'id', type: 'int'},
-			{name: 'order_id', type: 'int'},
+			{name: 'size', type: 'float'},
+			{name: 'order_id', type: 'int', convert: function(v,r){
+				switch(v){
+					case '0':
+						return "<span style='color:blue;'>Depot</span>";
+						break;							
+					default :
+						return v;
+						break;
+				}
+			}},
 			{name: 'vehicle_id', type: 'int'},
-			{name: 'pick_up', type: 'text'},
+			{name: 'pick_up', type: 'text', convert: function(v,r){
+				switch(v){
+					case 't':
+						return "<span style='color:green;'>Pickup</span>";
+						break;							
+					case 'f':
+						return "<span style='color:red;'>Dropoff</span>";
+						break;
+				}
+			}},
 			{name: 'at', type: 'date', dateFormat: 'c'}
 		],
 		proxy: new GeoExt.data.ProtocolProxy({
@@ -42,6 +87,25 @@ Ext.onReady(function() {
 	});
 	GRP.store.planner.setDefaultSort('id', 'asc');
 	
+	GRP.store.route = new GeoExt.data.FeatureStore({
+		layer: GRP.layer.route
+	});
+
+    var filters = new Ext.ux.grid.GridFilters({
+        encode: false,
+        local: true,
+        filters: [{
+            type: 'numeric',
+            dataIndex: 'order_id'
+        },{
+            type: 'numeric',
+            dataIndex: 'vehicle_id'
+        },{
+            type: 'date',
+            dataIndex: 'at'
+        }]
+    });    
+
 	/**
 	 * Grid Definition
 	 */
@@ -56,19 +120,20 @@ Ext.onReady(function() {
 		autoWidth: true,
 		autoScroll: true,
 		autoExpandColumn: 1,			
+        plugins: [filters],
 		cm: new Ext.grid.ColumnModel({
 			defaults: {
 				sortable: true
 			},
 			columns: [
-				{header: "Order ID", dataIndex: "order_id", align: 'right'},
-				{header: "Vehicle ID", dataIndex: "vehicle_id", align: 'right'},
-				{header: "Pickup", dataIndex: "pick_up"},
-				{header: "Pickup at", dataIndex: "at", renderer: Ext.util.Format.dateRenderer('Y-m-d H:i:s')}
+				{header: "Order ID", dataIndex: "order_id", align: 'right', filterable: true},
+				{header: "Vehicle ID", dataIndex: "vehicle_id", align: 'right', filterable: true},
+				{header: "Capacity", dataIndex: "size", align: 'right'},
+				{header: "Service", dataIndex: "pick_up"},
+				{header: "at (time)", dataIndex: "at", renderer: Ext.util.Format.dateRenderer('Y-m-d H:i:s'), filterable: true}
 			]
 		}),
 		sm: new GeoExt.grid.FeatureSelectionModel({
-			//selectControl: GRP.layer.planner.modifyControl.selectControl,
 			layer: GRP.layer.planner,
 			singleSelect: true,
 			listeners: {
@@ -79,7 +144,42 @@ Ext.onReady(function() {
 					//GRP.form.account.form.reset();
 				}
 			}
-		})
+		}),
+		bbar: ['->',{
+            text: 'Clear Filter Data',
+			iconCls: 'button-filter',
+            handler: function () {
+                GRP.grid.planner.filters.clearFilters();
+            } 
+        },{
+            text: 'Draw Route',
+			iconCls: 'button-route',
+            handler: function() {
+				/*
+				var points = [];
+				console.info(GRP.store.route);
+				
+				var p;
+				
+                GRP.store.planner.data.each(function(i){
+								
+					if(i.data.vehicle_id == 1) {
+						
+						p = OpenLayers.Geometry.Point(
+							i.data.feature.geometry.x,
+							i.data.feature.geometry.y
+						);
+						
+						points.push(p);
+					}
+				});
+				
+				GRP.layer.route.addFeatures([
+					new OpenLayers.Geometry.LineString(points)
+				]);
+				GRP.layer.route.refresh({force: true});*/
+            } 
+        }]
 	});	
             
 	/**
@@ -114,7 +214,6 @@ Ext.onReady(function() {
 					hiddenName: 'depot_id', 
 					valueField: 'id',						
 					editable: false,
-					width: 130,
 					forceSelection: true,
 					triggerAction: 'all',
 					selectOnFocus: true,
@@ -141,7 +240,6 @@ Ext.onReady(function() {
 					hiddenName: 'method', 
 					valueField: 'method',						
 					editable: false,
-					width: 130,
 					forceSelection: true,
 					triggerAction: 'all',
 					selectOnFocus: true,
@@ -149,7 +247,23 @@ Ext.onReady(function() {
 					getListParent: function() {
 						return this.el.up('.x-menu');
 					}
-				}]
+				}/*,{
+					emptyText: 'Select nearest ...',
+					xtype: 'combo',
+					mode: 'local',
+					store: GRP.store.nearest,
+					displayField: 'name',
+					hiddenName: 'nearest', 
+					valueField: 'nearest',						
+					editable: false,
+					forceSelection: false,
+					triggerAction: 'all',
+					selectOnFocus: true,
+					allowBlank: true,
+					getListParent: function() {
+						return this.el.up('.x-menu');
+					}
+				}*/]
 			}]
 		}],
 		buttons: [{
@@ -158,19 +272,17 @@ Ext.onReady(function() {
 			type: 'submit',
 			iconCls: 'button-calc',
 			handler: function(evt){ 
-				
 				GRP.store.planner.load({
 					params: GRP.form.planner.form.getValues()
 				});
-				
-				/*GRP.form.planner.form.submit({
-					url: GRP.baseURL + 'darp/calculate',
-					success: function(form,action){ 
-						//GRP.store.vehicle.reload(); 
-						GRP.form.planner.form.reset();
-					},            
-					failure: function(form,action){  }
-				});*/
+			}
+		},{
+			text: 'Report',
+			type: 'submit',
+			disabled: true,
+			iconCls: 'button-report',
+			handler: function(evt){ 
+				// todo
 			}
 		}]
 	});      

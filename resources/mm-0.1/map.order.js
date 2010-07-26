@@ -10,7 +10,7 @@ Ext.onReady(function() {
 		styleMap: new OpenLayers.StyleMap({
 			'default': OpenLayers.Util.applyDefaults({
 				strokeWidth: 5,
-				strokeColor: '#FF0000',
+				strokeColor: '#00FFFF',
 				strokeOpacity: 0.8,
 				strokeDashstyle: 'solid'
 				}, OpenLayers.Feature.Vector.style["default"]), 
@@ -18,11 +18,6 @@ Ext.onReady(function() {
 				strokeWidth: 7,
 				strokeDashstyle: 'solid',
 				strokeColor: '#0000FF'
-			}, 
-			'edit': {
-				strokeWidth: 7,
-				strokeDashstyle: 'solid',
-				strokeColor: '#00FF00'
 			}
 		})
 	});

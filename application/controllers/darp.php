@@ -11,7 +11,7 @@ class Darp extends Controller {
 	    }
 
 		$this->output->set_header("Cache-Control: no-cache, must-revalidate");
-		//$this->output->set_header("Content-Type: application/jsonrequest");		
+		$this->output->set_header("Content-Type: application/jsonrequest");		
 	}
 
 	function index()
@@ -26,33 +26,22 @@ class Darp extends Controller {
 	{
 		$data = array( 
 			'depot_id' => $this->input->post('depot_id'),
+			'nearest'  => $this->input->post('nearest'),
 			'method'   => $this->input->post('method')
 		);
 		$this->_buildmatrix($data);
 		
-		$sql = "SELECT id, order_id, vehicle_id, pick_up, to_char(at, 'YYYY-MM-DD HH24:MI:SS'::text) AS at
+		$sql = "SELECT b.*, a.id, a.order_id, vehicle_id, pick_up, to_char(at, 'YYYY-MM-DD HH24:MI:SS'::text) AS at
 					FROM darp(
 						'SELECT * FROM darp_orders WHERE depot_id IN (0,".$data['depot_id'].")',
 						'SELECT * FROM darp_vehicles WHERE depot_id = ".$data['depot_id']."', 
 						'SELECT * FROM distances'
-				);";
+				) a LEFT JOIN (SELECT * FROM darp_report WHERE depot_id IN (0,".$data['depot_id'].")) AS b ON (a.order_id = b.id);";
 		
 		$query = $this->db->query($sql); 
 		$this->output->set_output($this->_encode($query));
 	}
 
-	/**
-	 * PUBLIC: Calculate distance wrapper
-	 */ 
-	function distance() {
-		$data = array( 
-			'depot_id' => $this->input->post('depot_id'),
-			'method'   => 'euclidian'
-		);
-		
-		$this->output->set_output($this->_buildmatrix($data));
-	}
-	
 	/**
 	 * PRIVATE: Build distance matrix for "darp"
 	 */ 
@@ -108,14 +97,22 @@ class Darp extends Controller {
 		
 		foreach ($query->result() as $row)
 		{
+			if($row->pick_up === "t") {
+				$geometry = $row->startpoint;
+			}
+			else {
+				$geometry = $row->endpoint;
+			}
+			
 			$feature = array(
-				//"geometry"    => json_decode($row->geometry),
+				"geometry"    => json_decode($geometry),
 				"type"        => "Feature",
 				"properties"  => array(
 					"id"         => $row->id,
 					"order_id"   => $row->order_id,
 					"vehicle_id" => $row->vehicle_id,
 					"pick_up"    => $row->pick_up,
+					"size"       => $row->size,
 					"at"         => $row->at
 				),
 				"id"          => $row->id

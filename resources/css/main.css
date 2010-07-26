@@ -68,6 +68,18 @@ body {
   background-image:url(../images/calculator.png) !important;
 }
 
+.button-report {
+  background-image:url(../images/report_go.png) !important;
+}
+
+.button-filter {
+  background-image:url(../images/table_refresh.png) !important;
+}
+
+.button-route {
+  background-image:url(../images/trip_planner.png) !important;
+}
+
 .tab-fleet {
   background-image:url(../images/icon_red_car.png) !important;
 }
