@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Mobility Manager 0.1</title>
+	<title>OpenVRP Manager 0.1</title>
 
 	<link rel="shortcut icon" href="<?=base_url();?>resources/images/favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/ext-3.2.1/resources/css/ext-all.css" />
@@ -19,7 +19,7 @@
 	    	<img src="<?=base_url();?>resources/images/loading-icon.gif"/>
 			<span id="loading-title">
 				<script type="text/javascript">
-					document.write("Mobility Manager 0.1");
+					document.write("OpenVRP Manager 0.1");
 				</script>
 			</span><br/>
 			<span id="loading-msg">
@@ -37,7 +37,7 @@
 	<script type="text/javascript">document.getElementById('loading-msg').innerHTML = "Loading ExtJS ..."</script>
 	<script type="text/javascript" src="<?=base_url();?>resources/ext-3.2.1/adapter/ext/ext-base.js"></script>
 	<script type="text/javascript" src="<?=base_url();?>resources/ext-3.2.1/ext-all.js"></script>
-	<script type="text/javascript" src="<?=base_url();?>resources/mm-0.1/ext.ux.datetime.js"></script>  
+	<script type="text/javascript" src="<?=base_url();?>resources/ext.ux.datetime.js"></script>  
 	<script type="text/javascript" src="<?=base_url();?>resources/ext-3.2.1/examples/ux/gridfilters/menu/RangeMenu.js"></script>
 	<script type="text/javascript" src="<?=base_url();?>resources/ext-3.2.1/examples/ux/gridfilters/menu/ListMenu.js"></script>
 	
@@ -74,12 +74,12 @@
 		
    	</script> 
 
-	<script type="text/javascript" src="<?=base_url();?>resources/mm-0.1/map.geography.js"></script>  
-	<script type="text/javascript" src="<?=base_url();?>resources/mm-0.1/map.account.js"></script>  
-	<script type="text/javascript" src="<?=base_url();?>resources/mm-0.1/map.depot.js"></script>  
-	<script type="text/javascript" src="<?=base_url();?>resources/mm-0.1/map.vehicle.js"></script>  
-	<script type="text/javascript" src="<?=base_url();?>resources/mm-0.1/map.order.js"></script>  
-	<script type="text/javascript" src="<?=base_url();?>resources/mm-0.1/map.planner.js"></script>  
+	<script type="text/javascript" src="<?=base_url();?>resources/map.geography.js"></script>  
+	<script type="text/javascript" src="<?=base_url();?>resources/map.account.js"></script>  
+	<script type="text/javascript" src="<?=base_url();?>resources/map.depot.js"></script>  
+	<script type="text/javascript" src="<?=base_url();?>resources/map.vehicle.js"></script>  
+	<script type="text/javascript" src="<?=base_url();?>resources/map.order.js"></script>  
+	<script type="text/javascript" src="<?=base_url();?>resources/map.planner.js"></script>  
 	
 	<script type="text/javascript">
 	
@@ -111,13 +111,13 @@
 				}),				
 				bbar: new Ext.Toolbar({
 					items: [
-						{ xtype: "tbtext", text: "Mobility Manager - Prototype &copy;2010" },"->",
+						{ xtype: "tbtext", text: "OpenVRP Manager - Prototype &copy;2010" },"->",
 						{ xtype: "tbtext", text: 'Data/Maps Copyright 2010 <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap and contributors</a> | License: <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">Creative Commons BY-SA</a>' } 
 					]
 				}),				
 				items: [{
 					region: 'north',
-					html: '<h3 style="margin:20px;">Mobility Manager - Protoype 0.1</h3>',
+					html: '<h3 style="margin:20px;">OpenVRP Manager - Protoype 0.1</h3>',
 					height: 60
 				},{
 					region: 'center',

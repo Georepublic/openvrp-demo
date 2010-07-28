@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Mobility Manager 0.1</title>
+	<title>OpenVRP Manager 0.1</title>
 
 	<link rel="shortcut icon" href="<?=base_url();?>resources/images/favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/ext-3.2.1/resources/css/ext-all.css" />
@@ -16,12 +16,12 @@
 	    	<img src="<?=base_url();?>resources/images/loading-icon.gif"/>
 			<span id="loading-title">
 				<script type="text/javascript">
-					document.write("Mobility Manager 0.1");
+					document.write("OpenVRP Manager 0.1");
 				</script>
 			</span><br/>
 			<span id="loading-msg">
 				<script type="text/javascript">
-					document.write("Loading CSS ...");
+					document.write("OpenVRP CSS ...");
 				</script>
 			</span>
 		</div>
@@ -85,7 +85,7 @@
 		});
 	
 		var win = new Ext.Window({ 
-			title:"Mobility Manager 0.1 - Login", 
+			title:"OpenVRP Manager 0.1 - Login", 
 			modal: true,
 			closable: false,
 			resizable: false,
