@@ -86,7 +86,7 @@
 	
 		var win = new Ext.Window({ 
 			title:"OpenVRP Manager 0.1 - Login", 
-			modal: true,
+			modal: false,
 			closable: false,
 			resizable: false,
 			draggable: false,

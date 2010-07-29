@@ -1,5 +1,7 @@
 body {
-	
+  background-image: url(../images/body_background_1680px.jpg) !important;
+  background-repeat: no-repeat;
+  background-position: center -120;
 }
 
 #loading{
