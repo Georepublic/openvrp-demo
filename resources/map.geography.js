@@ -17,13 +17,16 @@ Ext.onReady(function() {
 		'transitionEffect': 'resize',
 		'controls': [
 			new OpenLayers.Control.PanZoomBar(),
-			new OpenLayers.Control.LayerSwitcher(),
+			new OpenLayers.Control.LayerSwitcher({
+				activeColor: 'green'
+			}),
 			new OpenLayers.Control.MousePosition({
 				separator: ' | ',
 				numDigits: 6,
 				displayProjection: GRP.projection
 			}),
-			new OpenLayers.Control.MouseDefaults()
+			new OpenLayers.Control.MouseDefaults(),
+			new OpenLayers.Control.NavigationHistory()
 		],
 		panMethod: null
 	});
@@ -44,31 +47,41 @@ Ext.onReady(function() {
 		new OpenLayers.Layer.WMS(" Blue Marble",
 			"http://maps.opengeo.org/geowebcache/service/wms",
 			{layers: "bluemarble"}
-		)
+		)	
 	]);
 	
 	/**
 	 * Map Panel
 	 */
-	GRP.mapPanel = new GeoExt.MapPanel({
-		region: "east",
-		border: false,
-		map: GRP.map,
-		center: GRP.defaultCenter.transform(
-			GRP.projection, 
-			new OpenLayers.Projection("EPSG:900913")
-		),
-		zoom: 14,
+	GRP.mapPanel = new Ext.Panel({
+		region: 'east',
 		border: true,
 		split: true,
 		collapsible: true,
 		collapseMode: 'mini',
 		hideCollapseTool: true,
 		resizeTabs: true,
-		width: '50%',
-		minSize: 250
+		width: '45%',
+		minSize: 250,
+		layout:'vbox',
+		layoutConfig: { align: 'stretch', pack: 'start' },
+		items: [ 
+			new GeoExt.MapPanel({
+				map: GRP.map,
+				viewConfig: {forceFit: true},
+				loadMask: true,
+				center: GRP.defaultCenter.transform(
+					GRP.projection, 
+					new OpenLayers.Projection("EPSG:900913")
+				),
+				flex: 1,
+				zoom: 14,
+				border: false,
+				tbar: ['<b>Map Panel</b>' ,'->', logout ]
+			})
+		]
 	});
-	
+
 	/**
 	 * OSM getTileURL calculation
 	 */

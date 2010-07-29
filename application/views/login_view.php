@@ -7,7 +7,7 @@
 	<link rel="shortcut icon" href="<?=base_url();?>resources/images/favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/ext-3.2.1/resources/css/ext-all.css" />
 	<link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/ext-3.2.1/resources/css/xtheme-gray.css" />
-	<link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/main.css" />
 </head>
 
 <body>

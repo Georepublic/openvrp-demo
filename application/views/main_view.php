@@ -10,7 +10,8 @@
     <link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/ext-3.2.1/examples/ux/gridfilters/css/GridFilters.css" />
     <link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/ext-3.2.1/examples/ux/gridfilters/css/RangeMenu.css" />
 	<link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/geoext-0.7/resources/css/geoext-all.css" />
-	<link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/css/main.css" />
+	<link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:regular,bold' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="<?=base_url();?>resources/main.css" />
 </head>
 
 <body>
@@ -64,6 +65,7 @@
 		Ext.ns('GRP.tab');
 		
 		var wkt = new OpenLayers.Format.WKT();
+		var logout = 'User: [<?=$account?>] | <?=anchor("login/logout", "Logout");?>';
 
 		GRP.baseURL = "<?=base_url();?>";
 		
@@ -103,17 +105,16 @@
 				xtype: 'panel',
 				region: 'center',
 				layout: 'border',
-				border: false,
+				border: true,
 				bbar: new Ext.Toolbar({
 					items: [
 						{ xtype: "tbtext", text: "OpenVRP Manager - Prototype &copy;2010" },"->",
-						{ xtype: "tbtext", text: 'Data/Maps Copyright 2010 <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap and contributors</a> | License: <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">Creative Commons BY-SA</a>' }, 
-						{ xtype: "tbtext", text: ' | Current user: [<?=$account?>] | <?=anchor("login/logout", "Logout");?>' } 
+						{ xtype: "tbtext", text: 'Data/Maps Copyright 2010 <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap and contributors</a> | License: <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">Creative Commons BY-SA</a>' }
 					]
 				}),				
 				items: [{
 					region: 'north',
-					html: '<h3>OpenVRP Manager - Protoype 0.1</h3>',
+					html: '<h3>OpenVRP manager</h3>',
 					baseCls: 'openvrp-header-panel',
 					height: 100
 				},{
@@ -121,7 +122,9 @@
 					xtype: 'tabpanel',
 					header: false,
 					activeTab: 0, 
-					border: false,
+					border: true,
+					enableTabScroll: true,
+					defaults: {autoScroll:true},
 					items: [
 						GRP.tab.planner,
 						GRP.tab.order,

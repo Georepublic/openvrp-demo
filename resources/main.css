@@ -1,0 +1,119 @@
+body {
+  background-image: url(./images/body_background_1920px.jpg) !important;
+  background-repeat: no-repeat;
+  background-position: center 120;
+}
+
+#loading{
+	position:absolute;
+	left:40%;
+	top:40%;
+	padding:1px;
+	z-index:20001;
+	border: 1px solid #999999;
+	width: 250px;
+}
+
+#loading .loading-indicator{
+	background: #EFEFFF;
+	color: #444444;
+	font-weight: bold;
+	font-size:  13px;
+	line-height: 22px;
+	padding: 10px;
+	margin: 0;
+}
+
+#loading .loading-indicator img{
+	margin-right: 10px;
+	float: left;
+	vertical-align: top;
+	height: 48px;
+}
+
+#loading-msg {
+	font-weight: normal;
+}
+
+.openvrp-header-panel {
+  background-image: url(./images/banner_background_1366px.jpg) !important;
+  background-repeat: no-repeat;
+  background-position: left -130px;
+  /*background-size: 100%;*/
+  background-color: #C5AD93;
+  padding: 15px;
+}
+
+.openvrp-header-panel h3 {
+	font-size: 57px;
+	color: #E37A09;
+	font-weight: bold;
+	font-family: 'Yanone Kaffeesatz', arial, serif;
+}
+
+/*
+ * Silk and GeoSilk icons used here
+ * are under Creative Commons Attribution 2.5 License.
+ *
+ * http://www.famfamfam.com/lab/icons/silk/
+ * http://projects.opengeo.org/geosilk
+ */
+.button-login {
+  background-image:url(./images/icon_red_car.png) !important;
+}
+
+.button-set-point {
+  background-image:url(./images/start_add.png) !important;
+}
+
+.button-delete {
+  background-image:url(./images/database_delete.png) !important;
+}
+
+.button-save {
+  background-image:url(./images/database_save.png) !important;
+}
+
+.button-add {
+  background-image:url(./images/database_add.png) !important;
+}
+
+.button-clear {
+  background-image:url(./images/cross.png) !important;
+}
+
+.button-calc {
+  background-image:url(./images/calculator.png) !important;
+}
+
+.button-report {
+  background-image:url(./images/report_go.png) !important;
+}
+
+.button-filter {
+  background-image:url(./images/table_refresh.png) !important;
+}
+
+.button-route {
+  background-image:url(./images/trip_planner.png) !important;
+}
+
+.tab-fleet {
+  background-image:url(./images/icon_red_car.png) !important;
+}
+
+.tab-order {
+  background-image:url(./images/icon_tickets.png) !important;
+}
+
+.tab-depot {
+  background-image:url(./images/icon_depot_small.png) !important;
+}
+
+.tab-planner {
+  background-image:url(./images/trip_planner.png) !important;
+}
+
+.tab-user {
+  background-image:url(./images/user_icon.png) !important;
+}
