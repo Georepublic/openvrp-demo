@@ -29,13 +29,12 @@ class Darp extends Controller {
 			'nearest'  => $this->input->post('nearest'),
 			'method'   => $this->input->post('method')
 		);
-		$this->_buildmatrix($data);
 		
 		$sql = "SELECT b.*, a.id, a.order_id, vehicle_id, pick_up, to_char(at, 'YYYY-MM-DD HH24:MI:SS'::text) AS at
 					FROM darp(
 						'SELECT * FROM darp_orders WHERE depot_id IN (0,".$data['depot_id'].")',
 						'SELECT * FROM darp_vehicles WHERE depot_id = ".$data['depot_id']."', 
-						'SELECT * FROM distances'
+						'".$distance = $this->_getdistances($data)."'
 				) a LEFT JOIN (SELECT * FROM darp_report WHERE depot_id IN (0,".$data['depot_id'].")) AS b ON (a.order_id = b.id);";
 		
 		$query = $this->db->query($sql); 
@@ -45,11 +44,8 @@ class Darp extends Controller {
 	/**
 	 * PRIVATE: Build distance matrix for "darp"
 	 */ 
-	function _buildmatrix($data)
+	function _getdistances($data)
 	{
-		// Drop table content
-		$this->db->empty_table('distances'); 
-		
 		// Renumber order_id
 		$this->db->query('ALTER TABLE orders ADD COLUMN temp_id serial;');
 		$this->db->query('UPDATE orders SET id=temp_id;');
@@ -65,24 +61,25 @@ class Darp extends Controller {
 		$this->db->or_where('depot_id', 0 ); 
 		$query = $this->db->get('darp_points');
 		
-		$sql = null;
+		$sql = "SELECT 0 AS from_order, 0 AS to_order, 0 AS value";
 
 		foreach ($query->result() as $a)
 		{	
 			foreach ($query->result() as $b)
 			{
 				switch($data['method']) {
-					case 'euclidian' : 				
-						$sql .= "INSERT INTO distances(from_order,to_order,value) 
-									VALUES (" . $a->id . "," . $b->id . "," . 
-									"round(ST_distance('" . $a->geom_meter . "','" . $b->geom_meter . "') / 5.55));\n";
+					case 'euclidian' : 	
+						$value = "round(ST_distance(ST_GeometryFromText(''".
+									$a->geom_meter."'',900913),ST_GeometryFromText(''".
+									$b->geom_meter."'',900913)) / 5.55)";
 						break;	
-				}					
+				}	
+								
+				$sql .= " UNION SELECT ".$a->id.",".$b->id.",".$value;
 			}
 		}
-		$this->db->query($sql); 
-				
-		return "{success: true}";
+		
+		return $sql;
 	}
 
 	/**
