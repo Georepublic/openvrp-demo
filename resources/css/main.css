@@ -33,6 +33,18 @@ body {
 	font-weight: normal;
 }
 
+.openvrp-header-panel {
+  background-image: url(../images/banner_background_1366px.jpg) !important;
+  background-repeat: no-repeat;
+  background-position: center -130px;
+  padding: 20px;
+}
+
+.openvrp-header-panel h3 {
+	font-size: 40px;
+	font-family: palatino linotype, palatino, georgia, times new roman, times, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro','メイリオ', Meiryo, 'ＭＳ Ｐゴシック', serif;
+}
+
 /*
 * Silk and GeoSilk icons used here
 * are under Creative Commons Attribution 2.5 License.

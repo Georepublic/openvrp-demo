@@ -117,8 +117,9 @@
 				}),				
 				items: [{
 					region: 'north',
-					html: '<h3 style="margin:20px;">OpenVRP Manager - Protoype 0.1</h3>',
-					height: 60
+					html: '<h3>OpenVRP Manager - Protoype 0.1</h3>',
+					baseCls: 'openvrp-header-panel',
+					height: 90
 				},{
 					region: 'center',
 					xtype: 'tabpanel',
@@ -149,32 +150,6 @@
 		});
 		
 	});
-	
-	/**
-	 * OSM getTileURL calculation
-	 */
-	GRP.getTileURL = function(bounds) {
-		var res = this.map.getResolution();
-		var x = Math.round((bounds.left - this.maxExtent.left) / (res * this.tileSize.w));
-		var y = Math.round((this.maxExtent.top - bounds.top) / (res * this.tileSize.h));
-		var z = this.map.getZoom();
-		var limit = Math.pow(2, z);
-		
-		if (y < 0 || y >= limit){
-			return null;
-		}
-		else {
-			x = ((x % limit) + limit) % limit;
-			
-			var url = this.url;
-			var path = z + "/" + x + "/" + y + ".png";
-			
-			if (url instanceof Array) {
-				url = this.selectUrl(path, url);
-			}
-			return url + path;
-		}
-	}
 	</script> 
 </body>
 </html>

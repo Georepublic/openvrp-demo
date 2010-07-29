@@ -69,4 +69,29 @@ Ext.onReady(function() {
 		minSize: 250
 	});
 	
+	/**
+	 * OSM getTileURL calculation
+	 */
+	GRP.getTileURL = function(bounds) {
+		var res = this.map.getResolution();
+		var x = Math.round((bounds.left - this.maxExtent.left) / (res * this.tileSize.w));
+		var y = Math.round((this.maxExtent.top - bounds.top) / (res * this.tileSize.h));
+		var z = this.map.getZoom();
+		var limit = Math.pow(2, z);
+		
+		if (y < 0 || y >= limit){
+			return null;
+		}
+		else {
+			x = ((x % limit) + limit) % limit;
+			
+			var url = this.url;
+			var path = z + "/" + x + "/" + y + ".png";
+			
+			if (url instanceof Array) {
+				url = this.selectUrl(path, url);
+			}
+			return url + path;
+		}
+	}
 });
