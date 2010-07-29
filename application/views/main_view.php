@@ -104,22 +104,18 @@
 				region: 'center',
 				layout: 'border',
 				border: false,
-				tbar: new Ext.Toolbar({
-					items: [
-						"->", { xtype: "tbtext", text: 'Current user: [<?=$account?>] | <?=anchor("login/logout", "Logout");?>' } 
-					]
-				}),				
 				bbar: new Ext.Toolbar({
 					items: [
 						{ xtype: "tbtext", text: "OpenVRP Manager - Prototype &copy;2010" },"->",
-						{ xtype: "tbtext", text: 'Data/Maps Copyright 2010 <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap and contributors</a> | License: <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">Creative Commons BY-SA</a>' } 
+						{ xtype: "tbtext", text: 'Data/Maps Copyright 2010 <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap and contributors</a> | License: <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">Creative Commons BY-SA</a>' }, 
+						{ xtype: "tbtext", text: ' | Current user: [<?=$account?>] | <?=anchor("login/logout", "Logout");?>' } 
 					]
 				}),				
 				items: [{
 					region: 'north',
 					html: '<h3>OpenVRP Manager - Protoype 0.1</h3>',
 					baseCls: 'openvrp-header-panel',
-					height: 90
+					height: 100
 				},{
 					region: 'center',
 					xtype: 'tabpanel',
