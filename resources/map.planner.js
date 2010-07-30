@@ -326,6 +326,23 @@ Ext.onReady(function() {
 				});
 			}
 		},{
+			text: 'Debug (SQL)',
+			formBind: true,
+			type: 'submit',
+			handler: function(evt){ 
+				Ext.Ajax.request({
+					url: GRP.baseURL + 'darp/debugsql',
+					method: 'POST',
+					isUpload: true,
+					params: GRP.form.planner.form.getValues(),
+					success : function(form, action) {
+						var result = form.responseText;
+						Ext.getCmp('response-text').setValue(result);						
+				        debugPopup.show();
+					}
+				});
+			}
+		},{
 			text: 'Report',
 			type: 'submit',
 			disabled: true,
@@ -335,6 +352,38 @@ Ext.onReady(function() {
 			}
 		}]
 	});      
+
+	/**
+	 * Debug Popup
+	 */
+	var debugPopup = new Ext.Window({
+		title: 'Debug - SQL',
+		border: false,
+		width:700,
+		height:400,
+		modal: true,
+		layout: 'fit',
+		resizable: false,
+		closeAction: 'hide',
+		items: [
+			new Ext.FormPanel({
+				layout: 'fit',
+				border: false,
+				items: [{
+					xtype: 'textarea',
+					id: 'response-text',
+					monitorResize: true
+				}]
+			})
+		],
+		plain: true,				
+		buttons: [{
+			text: 'Close',
+			handler: function(){
+				debugPopup.hide();
+			}
+		}]
+	});
 
 	/**
 	 * Tabpanel Definition

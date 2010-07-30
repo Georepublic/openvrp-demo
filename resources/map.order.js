@@ -350,7 +350,7 @@ Ext.onReady(function() {
 							GRP.store.order.reload(); 
 							GRP.form.order.form.reset();
 						},            
-						failure: function(form,action){ console.info(action); }
+						failure: function(form,action){}
 					});
 				}
 			}
