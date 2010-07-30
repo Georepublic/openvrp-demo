@@ -144,6 +144,7 @@ Ext.onReady(function() {
 				sortable: true
 			},
 			columns: [
+				{header: "ID", dataIndex: "id", align: 'right', width: 30},
 				{header: "Order ID", dataIndex: "order_id", align: 'right', filterable: true},
 				{header: "Vehicle ID", dataIndex: "vehicle_id", align: 'right', filterable: true},
 				{header: "Capacity", dataIndex: "size", align: 'right'},
