@@ -64,8 +64,10 @@
 		Ext.ns('GRP.form');
 		Ext.ns('GRP.tab');
 		
-		var wkt = new OpenLayers.Format.WKT();
+		var wkt  = new OpenLayers.Format.WKT();
+		var kml  = new OpenLayers.Format.KML();
 		var json = new OpenLayers.Format.GeoJSON();
+		
 		var logout = 'User: [<?=$account?>] | <?=anchor("login/logout", "Logout");?>';
 
 		GRP.baseURL = "<?=base_url();?>";

@@ -218,15 +218,76 @@ Ext.onReady(function() {
 					
 					var lineString = new OpenLayers.Geometry.LineString(points);
 					var lineFeature = new OpenLayers.Feature.Vector(
-								lineString, {
-									vehicle_id: item
-								}
-							); 					
-							console.info(lineFeature);
+											lineString, { vehicle_id: item }); 					
 					GRP.layer.route.addFeatures([lineFeature]);
 
 					GRP.store.planner.clearFilter();
 				});			
+            } 
+        },{
+            text: 'Export GeoJSON',
+			iconCls: 'button-kml',
+            handler: function() {
+				var vehicles = GRP.store.planner.collect('vehicle_id');	
+				
+				var radiobuttons = [];
+								
+				Ext.each(vehicles,function(item, idx, arr){
+					
+					var points = [];					
+					GRP.store.planner.filter('vehicle_id',item);
+					
+					GRP.store.planner.data.each(function(i){	
+						
+						var g = i.data.feature.geometry;
+						g.transform(
+							new OpenLayers.Projection("EPSG:900913"),
+							new OpenLayers.Projection("EPSG:4326")
+						);
+
+						points.push(							
+							new OpenLayers.Geometry.Point(g.x, g.y)
+						);
+					});
+					
+					var lineString = new OpenLayers.Geometry.LineString(points);
+					var lineFeature = new OpenLayers.Feature.Vector(
+								lineString, {
+									vehicle_id: item
+								}
+							); 	
+							
+					radiobuttons.push({
+						boxLabel: 'GeoJSON Export - <b>Vehicle: ' + item + '</b>', 
+						name: 'data', 
+						inputValue: Ext.util.Format.htmlEncode(json.write(lineFeature))
+					});
+					
+					GRP.store.planner.clearFilter();
+				});		
+				
+				Ext.getCmp('export-content').add({
+					xtype: 'radiogroup',
+					items: radiobuttons,
+					listeners: {
+						change: function(radio, chk) {
+							try {
+								Ext.destroy(Ext.get('downloadIframe'));
+							}
+							catch(e) {}
+							Ext.DomHelper.append(document.body, {
+								tag: 'iframe',
+								id:'downloadIframe',
+								frameBorder: 0,
+								width: 0,
+								height: 0,
+								css: 'display:none;visibility:hidden;height:0px;',
+								src: GRP.baseURL + 'download.php?geojson=' + chk.inputValue
+							});
+						}
+					}
+				});
+				exportPopup.show();
             } 
         }]
 	});	
@@ -327,8 +388,9 @@ Ext.onReady(function() {
 				});
 			}
 		},{
-			text: 'Debug (SQL)',
+			text: 'Debug',
 			formBind: true,
+			iconCls: 'button-debug',
 			type: 'submit',
 			handler: function(evt){ 
 				Ext.Ajax.request({
@@ -382,6 +444,38 @@ Ext.onReady(function() {
 			text: 'Close',
 			handler: function(){
 				debugPopup.hide();
+			}
+		}]
+	});
+
+	/**
+	 * Export Popup
+	 */
+	var exportPopup = new Ext.Window({
+		title: 'Trip Planner Export',
+		border: false,
+		width: 400,
+		height: 300,
+		modal: true,
+		layout: 'fit',
+		resizable: false,
+		closeAction: 'hide',
+		items: [
+			new Ext.FormPanel({
+				layout: 'fit',
+				title: 'Select an item for download:',
+				frame: true,
+				//standardSubmit: true,
+				id: 'export-content',
+				border: false,
+				items: []
+			})
+		],
+		plain: true,				
+		buttons: [{
+			text: 'Close',
+			handler: function(){
+				exportPopup.hide();
 			}
 		}]
 	});

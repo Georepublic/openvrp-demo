@@ -94,6 +94,14 @@ body {
   background-image:url(./images/table_refresh.png) !important;
 }
 
+.button-debug {
+  background-image:url(./images/bug.png) !important;
+}
+
+.button-kml {
+  background-image:url(./images/map_go.png) !important;
+}
+
 .button-route {
   background-image:url(./images/trip_planner.png) !important;
 }
