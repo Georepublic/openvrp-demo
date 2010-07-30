@@ -1,5 +1,5 @@
 /**
- * Depot Tabpanel
+ * Planner Tabpanel
  */
 Ext.onReady(function() {
 
@@ -8,10 +8,10 @@ Ext.onReady(function() {
 	 */
 	var plannerStyle = new OpenLayers.StyleMap({
 			'default': OpenLayers.Util.applyDefaults({
-					pointRadius: 12
+					pointRadius: 10
 				}, OpenLayers.Feature.Vector.style["default"]), 
 			'select': {
-				pointRadius: 16
+				fillOpacity: 1.0
 			}
 		});	
 	plannerStyle.addUniqueValueRules("default", "pick_up", {
@@ -24,7 +24,29 @@ Ext.onReady(function() {
 	});
 	GRP.map.addLayer(GRP.layer.planner);
 
-	GRP.layer.route = new OpenLayers.Layer.Vector( "Route");
+	var routeStyle = new OpenLayers.StyleMap({
+			'default': OpenLayers.Util.applyDefaults({
+				strokeWidth: 5,
+				strokeColor: 'orange',
+				strokeOpacity: 0.8,
+				strokeDashstyle: 'dash'
+			}, OpenLayers.Feature.Vector.style["default"])
+		});	
+	routeStyle.addUniqueValueRules("default", "vehicle_id", {
+		"1": {strokeColor: '#FF00FF'},
+		"2": {strokeColor: '#800000'},
+		"3": {strokeColor: '#800080'},
+		"4": {strokeColor: '#808000'},
+		"5": {strokeColor: '#008080'},
+		"6": {strokeColor: '#000080'},
+		"7": {strokeColor: '#00FF00'},
+		"8": {strokeColor: '#FF4500'},
+		"9": {strokeColor: '#000000'}
+	});
+
+	GRP.layer.route = new OpenLayers.Layer.Vector( "Route", {
+		styleMap: routeStyle
+	});
 	GRP.map.addLayer(GRP.layer.route);
 	
 	/**
@@ -87,10 +109,6 @@ Ext.onReady(function() {
 	});
 	GRP.store.planner.setDefaultSort('id', 'asc');
 	
-	GRP.store.route = new GeoExt.data.FeatureStore({
-		layer: GRP.layer.route
-	});
-
     var filters = new Ext.ux.grid.GridFilters({
         encode: false,
         local: true,
@@ -138,7 +156,9 @@ Ext.onReady(function() {
 			singleSelect: true,
 			listeners: {
 				rowselect: function(sm, row, rec) {
-					//GRP.form.account.form.loadRecord(rec);
+					// Zoom to feature
+					//var a = rec.data.feature.geometry.getBounds();
+					//GRP.map.panTo(a.getCenterLonLat());
 				},
 				rowdeselect: function(sm, row, rec) {
 					//GRP.form.account.form.reset();
@@ -155,29 +175,57 @@ Ext.onReady(function() {
             text: 'Draw Route',
 			iconCls: 'button-route',
             handler: function() {
-				/*
-				var points = [];
-				console.info(GRP.store.route);
+				GRP.layer.route.destroyFeatures(GRP.layer.route.features);
 				
-				var p;
+				var vehicles = GRP.store.planner.collect('vehicle_id');	
 				
-                GRP.store.planner.data.each(function(i){
-								
-					if(i.data.vehicle_id == 1) {
+				Ext.each(vehicles,function(item, idx, arr){
+					
+					var points = [];					
+					GRP.store.planner.filter('vehicle_id',item);
+					
+					GRP.store.planner.data.each(function(i){	
 						
-						p = OpenLayers.Geometry.Point(
-							i.data.feature.geometry.x,
-							i.data.feature.geometry.y
+						var g = i.data.feature.geometry;
+						/*g.transform(
+							new OpenLayers.Projection("EPSG:900913"),
+							new OpenLayers.Projection("EPSG:4326")
+						);*/
+
+						points.push(							
+							new OpenLayers.Geometry.Point(g.x, g.y)
 						);
-						
-						points.push(p);
-					}
-				});
-				
-				GRP.layer.route.addFeatures([
-					new OpenLayers.Geometry.LineString(points)
-				]);
-				GRP.layer.route.refresh({force: true});*/
+					});
+					
+					/*
+					Ext.each(points,function(item, idx, pts){	
+						if(idx >0) {
+							var url = 'http://api.cirius.co.jp/wrs/1.0.0/suuchi/lonlat/shortest_path.geojson?';
+							var get = [
+								'start=' + pts[idx]['x'] + '%20' + pts[idx]['y'],
+								'end=' + pts[idx-1]['x'] + '%20' + pts[idx-1]['y'],
+								'api_key=ecba2ad10552f1082b1d36bc9867c5249415a52a84c9d90e10db3e26a45f7e24',
+								'sridIn=4326'
+							];	
+							
+							GRP.store.route.load({
+								params: { 'url': url + get.join('&') },
+								add: true
+							});						
+						}	
+					});*/
+					
+					var lineString = new OpenLayers.Geometry.LineString(points);
+					var lineFeature = new OpenLayers.Feature.Vector(
+								lineString, {
+									vehicle_id: item
+								}
+							); 					
+							console.info(lineFeature);
+					GRP.layer.route.addFeatures([lineFeature]);
+
+					GRP.store.planner.clearFilter();
+				});			
             } 
         }]
 	});	
@@ -272,6 +320,7 @@ Ext.onReady(function() {
 			type: 'submit',
 			iconCls: 'button-calc',
 			handler: function(evt){ 
+				GRP.layer.route.destroyFeatures(GRP.layer.route.features);
 				GRP.store.planner.load({
 					params: GRP.form.planner.form.getValues()
 				});

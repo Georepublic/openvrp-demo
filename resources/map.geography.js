@@ -61,7 +61,7 @@ Ext.onReady(function() {
 		collapseMode: 'mini',
 		hideCollapseTool: true,
 		resizeTabs: true,
-		width: '45%',
+		width: '50%',
 		minSize: 250,
 		layout:'vbox',
 		layoutConfig: { align: 'stretch', pack: 'start' },

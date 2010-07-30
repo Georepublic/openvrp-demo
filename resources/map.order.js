@@ -9,15 +9,14 @@ Ext.onReady(function() {
 	GRP.layer.order = new OpenLayers.Layer.Vector( "Orders", {
 		styleMap: new OpenLayers.StyleMap({
 			'default': OpenLayers.Util.applyDefaults({
-				strokeWidth: 5,
+				strokeWidth: 4,
 				strokeColor: '#00FFFF',
-				strokeOpacity: 0.8,
+				strokeOpacity: 0.5,
 				strokeDashstyle: 'solid'
 				}, OpenLayers.Feature.Vector.style["default"]), 
 			'select': {
-				strokeWidth: 7,
-				strokeDashstyle: 'solid',
-				strokeColor: '#0000FF'
+				strokeWidth: 6,
+				strokeOpacity: 1.0,
 			}
 		})
 	});
@@ -36,13 +35,6 @@ Ext.onReady(function() {
 			Ext.getCmp('wkt-order-end').setValue('POINT(' + points[1].x + ' ' + points[1].y + ')');
 		}
 	});
-	
-	//GRP.layer.order.drawControl = new OpenLayers.Control.DrawFeature(
-	//	GRP.layer.order,
-	//	OpenLayers.Handler.Point,
-	//	{ handlerOptions: {multi: true} }
-	//);
-	//GRP.map.addControl(GRP.layer.order.drawControl);
 	
 	/**
 	 * Store Definition

@@ -65,6 +65,7 @@
 		Ext.ns('GRP.tab');
 		
 		var wkt = new OpenLayers.Format.WKT();
+		var json = new OpenLayers.Format.GeoJSON();
 		var logout = 'User: [<?=$account?>] | <?=anchor("login/logout", "Logout");?>';
 
 		GRP.baseURL = "<?=base_url();?>";
@@ -73,7 +74,6 @@
 
 		OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
 		OpenLayers.Util.onImageLoadErrorColor = 'transparent';	
-		
    	</script> 
 
 	<script type="text/javascript" src="<?=base_url();?>resources/map.geography.js"></script>  
