@@ -63,7 +63,7 @@
 				allowBlank: false 
 			},{ 
 				xtype: 'textfield',
-				fieldLabel: "Passwword", 
+				fieldLabel: "Password", 
 				name: 'password', 
 				inputType: 'password', 
 				allowBlank: false 
