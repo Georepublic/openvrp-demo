@@ -8,4 +8,4 @@
 # Install notes:
 # =============
 
-- this application reqires a database (currently database deply script not included)
+- this application reqires a database (create tables with data/createdb.sql)
