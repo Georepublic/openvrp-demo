@@ -36,12 +36,12 @@ body {
 }
 
 .openvrp-header-panel {
-  background-image: url(./images/banner_background_1366px.jpg) !important;
-  background-repeat: no-repeat;
-  background-position: left -130px;
-  /*background-size: 100%;*/
-  background-color: #C5AD93;
-  padding: 15px;
+	background-image: url(./images/banner_background_1366px.jpg) !important;
+	background-repeat: no-repeat;
+	background-position: left -130px;
+	/*background-size: 100%;*/
+	background-color: #C5AD93;
+	padding: 15px;
 }
 
 .openvrp-header-panel h3 {
