@@ -15,8 +15,8 @@ body {
 }
 
 #loading .loading-indicator{
-	background: #EFEFFF;
-	color: #444444;
+	background: #C5AD93;
+	color: #222222;
 	font-weight: bold;
 	font-size:  13px;
 	line-height: 22px;
