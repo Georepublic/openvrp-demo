@@ -59,13 +59,6 @@ Ext.onReady(function() {
 		)
 	]);
 	
-	GRP.map.layers[0].setOpacity(0.5);
-	GRP.map.layers[1].setOpacity(0.5);
-	GRP.map.layers[2].setOpacity(0.5);
-	GRP.map.layers[3].setOpacity(0.5);
-	GRP.map.layers[4].setOpacity(0.5);
-	GRP.map.layers[5].setOpacity(0.5);
-
 	/**
 	 * Map Panel
 	 */
@@ -97,6 +90,18 @@ Ext.onReady(function() {
 			})
 		]
 	});
+
+	GRP.map.layers[0].setOpacity(0.3);
+	GRP.map.layers[1].setOpacity(0.3);
+	GRP.map.layers[2].setOpacity(0.7);
+	GRP.map.layers[3].setOpacity(0.5);
+	GRP.map.layers[4].setOpacity(0.5);
+	GRP.map.layers[5].setOpacity(0.5);
+	
+	GRP.map.layers[6].setOpacity(1.0);
+	GRP.map.layers[7].setOpacity(1.0);
+	GRP.map.layers[8].setOpacity(1.0);
+	GRP.map.layers[9].setOpacity(1.0);
 
 	/**
 	 * OSM getTileURL calculation
