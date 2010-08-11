@@ -32,7 +32,7 @@
 	</div>		
 	
 	<script type="text/javascript">document.getElementById('loading-msg').innerHTML = "Loading OpenLayers ..."</script>
-	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true_or_false&amp;key=ABQIAAAAXRQTsj9_bEUYstPWwJ4iOBRDCOZJPnKRX0oU_LmqFt7NOTjq6hS2mPCvcmLNCe4ZigJKszqAOVqRpA" type="text/javascript"></script>
+	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAXRQTsj9_bEUYstPWwJ4iOBRDCOZJPnKRX0oU_LmqFt7NOTjq6hS2mPCvcmLNCe4ZigJKszqAOVqRpA" type="text/javascript"></script>
 	<script type="text/javascript" src="<?=base_url();?>resources/proj4js/lib/proj4js-combined.js"></script>
 	<script type="text/javascript" src="<?=base_url();?>resources/openlayers-2.9.1/OpenLayers.js"></script>
 
