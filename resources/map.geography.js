@@ -58,6 +58,13 @@ Ext.onReady(function() {
 			{type: G_HYBRID_MAP, sphericalMercator: true, numZoomLevels: 19}
 		)
 	]);
+	
+	GRP.map.layers[0].setOpacity(0.5);
+	GRP.map.layers[1].setOpacity(0.5);
+	GRP.map.layers[2].setOpacity(0.5);
+	GRP.map.layers[3].setOpacity(0.5);
+	GRP.map.layers[4].setOpacity(0.5);
+	GRP.map.layers[5].setOpacity(0.5);
 
 	/**
 	 * Map Panel
