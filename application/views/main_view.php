@@ -111,10 +111,11 @@
 				border: true,
 				bbar: new Ext.Toolbar({
 					items: [
-						{ xtype: "tbtext", text: "OpenVRP Manager - Prototype &copy;2010" },"->",
+						{ xtype: "tbtext", text: '<a href="http://georepublic.de" target="_blank">Georepublic UG</a> & <a href="http://georepublic.co.jp" target="_blank">Georepublic Japan</a> &copy;2010' }, "-",
+						{ xtype: 'tbtext', text: 'OpenVRP Manager - Prototype' }, "->",
 						{ xtype: "tbtext", text: 'Data/Maps Copyright 2010 <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap and contributors</a> | License: <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">Creative Commons BY-SA</a>' }
 					]
-				}),				
+				}),
 				items: [{
 					region: 'north',
 					html: '<h3>OpenVRP manager</h3>',

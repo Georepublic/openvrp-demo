@@ -25,7 +25,7 @@
 				</script>
 			</span>
 		</div>
-	</div>		
+	</div>
 	
 	<script type="text/javascript">document.getElementById('loading-msg').innerHTML = "Loading ExtJS ..."</script>
 	<script type="text/javascript" src="<?=base_url();?>resources/ext-3.2.1/adapter/ext/ext-base.js"></script>
@@ -42,16 +42,16 @@
 		Ext.form.Field.prototype.msgTarget = 'side';
 	
 		var login = new Ext.FormPanel({ 
-		    monitorValid: true,
+			monitorValid: true,
 			standardSubmit: true,
-		    onSubmit: Ext.emptyFn,
-		    url: 'login/process', 
-		    frame: true, 
-		    width: 350,
-		    autoHeight:true,
-		    labelWidth: 80,
+			onSubmit: Ext.emptyFn,
+			url: 'login/process', 
+			frame: true, 
+			width: 350,
+			autoHeight:true,
+			labelWidth: 80,
 			bodyStyle: 'padding:15px;',
-		    items:[{
+			items:[{
 				xtype: 'panel',
 				height: 40,
 				html: "<?=$this->session->flashdata('message');?>" || "<b>Please fill in your username and password und click the login button.</b>"
@@ -68,7 +68,7 @@
 				inputType: 'password', 
 				allowBlank: false 
 			}],
-		    buttons:[{ 
+			buttons:[{ 
 				text: "Login",
 				formBind: true,	
 				iconCls: 'button-login',
@@ -95,7 +95,7 @@
 					Ext.get('loading').hide();
 				}
 			},
-			items: [login] 
+			items: [login]
 		});
 		win.show();
 
