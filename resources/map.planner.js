@@ -80,7 +80,7 @@ Ext.onReady(function() {
 				switch(v){
 					case '0':
 						return "<span style='color:blue;'>Depot</span>";
-						break;							
+						break;
 					default :
 						return v;
 						break;
@@ -107,7 +107,7 @@ Ext.onReady(function() {
 			})
 		})
 	});
-	GRP.store.planner.setDefaultSort('id', 'asc');
+	GRP.store.planner.setDefaultSort('vehicle_id', 'asc');
 	
     var filters = new Ext.ux.grid.GridFilters({
         encode: false,
