@@ -30,9 +30,20 @@ Ext.onReady(function() {
 
 	GRP.layer.order.events.on({
 		'featuremodified': function(evt) {
+		
+			evt.feature.geometry.transform(
+				new OpenLayers.Projection("EPSG:900913"),
+				GRP.projection
+			);
+
 			var points = evt.feature.geometry.getVertices();
 			Ext.getCmp('wkt-order-start').setValue('POINT(' + points[0].x + ' ' + points[0].y + ')');
 			Ext.getCmp('wkt-order-end').setValue('POINT(' + points[1].x + ' ' + points[1].y + ')');
+
+			evt.feature.geometry.transform(
+				GRP.projection,
+				new OpenLayers.Projection("EPSG:900913")
+			);
 		}
 	});
 	
@@ -46,7 +57,6 @@ Ext.onReady(function() {
 			{name: 'name', type: 'string'},
 			{name: 'created', type: 'date', dateFormat: 'c'},
 			{name: 'updated', type: 'date', dateFormat: 'c'},
-			{name: 'account_id', type: 'int'},
 			{name: 'size', type: 'float'},
 			{name: 'pickup', type: 'date', dateFormat: 'c'},
 			{name: 'pick_after', type: 'float'},
@@ -88,7 +98,6 @@ Ext.onReady(function() {
 				{header: "Name", dataIndex: "name", width: 150, align: 'left'},
 				{header: "Created", dataIndex: "created", hidden: true, renderer: Ext.util.Format.dateRenderer('Y/m/d H:i:s')},
 				{header: "Updated", dataIndex: "updated", hidden: true, renderer: Ext.util.Format.dateRenderer('Y/m/d H:i:s')},
-				{header: "Account", dataIndex: "account_id", hidden: true},
 				{header: "Capacity", dataIndex: "size"},
 				{header: "Pickup", dataIndex: "pickup", width: 140, renderer: Ext.util.Format.dateRenderer('Y/m/d H:i')},
 				{header: "Pickup <b>-</b>", dataIndex: "pick_before"},
@@ -107,9 +116,20 @@ Ext.onReady(function() {
 					// Load record
 					GRP.form.order.form.loadRecord(rec);
 					
+					rec.data.feature.geometry.transform(
+						new OpenLayers.Projection("EPSG:900913"),
+						GRP.projection
+					);
+
 					var points = rec.data.feature.geometry.getVertices();
+
 					Ext.getCmp('wkt-order-start').setValue('POINT(' + points[0].x + ' ' + points[0].y + ')');
 					Ext.getCmp('wkt-order-end').setValue('POINT(' + points[1].x + ' ' + points[1].y + ')');
+
+					rec.data.feature.geometry.transform(
+						GRP.projection,
+						new OpenLayers.Projection("EPSG:900913")
+					);
 
 					// Set slider
 					Ext.getCmp('pickup_slider').setValue(0,rec.data.pick_before);
@@ -180,11 +200,12 @@ Ext.onReady(function() {
 					mode: 'local',
 					store: GRP.store.account,
 					fieldLabel: 'Customer',
-					emptyText: 'Select customer ...',
+					emptyText: '[disabled] Select customer ... ',
 					displayField: 'name',
 					hiddenName: 'account_id', 
 					valueField: 'id',						
-					allowBlank: false,
+					allowBlank: true,
+					disabled: true,
 					editable: false,
 					forceSelection: true,
 					triggerAction: 'all',

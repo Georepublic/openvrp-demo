@@ -224,7 +224,7 @@ Ext.onReady(function() {
 					GRP.store.planner.clearFilter();
 				});			
             } 
-        },{
+        }/*,{
             text: 'Export GeoJSON',
 			iconCls: 'button-kml',
             handler: function() {
@@ -289,7 +289,7 @@ Ext.onReady(function() {
 				});
 				exportPopup.show();
             } 
-        }]
+        }*/]
 	});	
             
 	/**
