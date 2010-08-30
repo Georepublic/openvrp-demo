@@ -27,7 +27,7 @@ class Vehicle extends Controller {
 	{
 		if($this->uri->segment(3) !== FALSE)
 		{
-			$this->db->where('vehicle_id', $id = $this->uri->segment(3));
+			$this->db->where('id', $id = $this->uri->segment(3));
 		}
 		
 		$query = $this->db->get('vehicle');
@@ -58,7 +58,7 @@ class Vehicle extends Controller {
 		   'depot_id' => $this->input->post('depot_id'),
 		   'updated' => 'now()'
 		);
-		$this->db->where('vehicle_id', $id = $this->uri->segment(3));
+		$this->db->where('id', $id = $this->uri->segment(3));
 		$this->db->update('vehicle', $data); 
 		$this->output->set_output("{success: true}");
 	}
@@ -67,7 +67,7 @@ class Vehicle extends Controller {
 	 * Delete feature
 	 */ 
 	function delete() { 
-		$this->db->where('vehicle_id', $id = $this->uri->segment(3));
+		$this->db->where('id', $id = $this->uri->segment(3));
 		$this->db->delete('vehicle'); 
 		$this->output->set_output("{success: true}");
 	}
@@ -87,14 +87,14 @@ class Vehicle extends Controller {
 			$feature = array(
 				"type"        => "Feature",
 				"properties"  => array(
-					"vehicle_id" => $row->vehicle_id,
+					"vehicle_id" => $row->id,
 					"name"       => $row->name,
 					"capacity"   => $row->capacity,
 					"depot_id"   => $row->depot_id,
 					"created"    => $row->created,
 					"updated"    => $row->updated
 				),
-				"vehicle_id"     => $row->vehicle_id
+				"vehicle_id"     => $row->id
 			);
 			
 			array_push($json["features"], $feature);

@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<profiles xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://xsi.openvrp.com/2.0.0/profile.xsd">
+
+	<profile name="19070025e2ca2c0a65f29e8bcf8dc1e4" title="OSM - Barcelona (Spain)">
+		<description>Pedestrian routing for Barcelona, Spain (OSM)</description>
+		<parameters>
+			<parameter name="srid_in" type="integer" key="srid" value="EPSG:4326" />
+			<parameter name="srid_extent" type="integer" key="srid_extent" value="EPSG:4326" />
+			<parameter name="table" type="string" key="table" value="ways" />
+			<parameter name="extent" type="string" key="extent" value="1.998653 41.27, 2.343693 41.495207" />
+		</parameters>
+		<resources>
+			<rref ref="pgrouting" enabled="true" />
+		</resources>
+	</profile>
+
+	<profile name="1747d4b2dd4bcd666e2df31563d22dbe" title="OSM - Spain">
+		<description>Pedestrian routing for Spain (OSM)</description>
+		<parameters>
+			<parameter name="srid_in" type="integer" key="srid" value="EPSG:4326" />
+			<parameter name="srid_extent" type="integer" key="srid_extent" value="EPSG:4326" />
+			<parameter name="table" type="string" key="table" value="view_es_topo" />
+			<parameter name="extent" type="string" key="extent" value="-9.65 35.8, 4.3107722 43.7856147" />
+		</parameters>
+		<resources>
+			<rref ref="osm2po_es" enabled="true" />
+		</resources>
+	</profile>
+
+	<profile name="5afc76bc69955ce317651a3dc1dbb0d6" title="OSM - Bayern (Germany)">
+		<description>Pedestrian routing for Bayern, Germany (OSM)</description>
+		<parameters>
+			<parameter name="srid_in" type="integer" key="srid" value="EPSG:4326" />
+			<parameter name="srid_extent" type="integer" key="srid_extent" value="EPSG:4326" />
+			<parameter name="table" type="string" key="table" value="view_de_bayern_topo" />
+			<parameter name="extent" type="string" key="extent" value="8.9689352 47.3483127,13.8461142 50.5697297" />
+		</parameters>
+		<resources>
+			<rref ref="osm2po_de_bayern" enabled="true" />
+		</resources>
+	</profile>
+
+	<profile name="d35a02eb49149450fb2fffc6e467eb37" title="OSM - Berlin (Germany)">
+		<description>Pedestrian routing for Berlin, Germany (OSM)</description>
+		<parameters>
+			<parameter name="srid_in" type="integer" key="srid" value="EPSG:4326" />
+			<parameter name="srid_extent" type="integer" key="srid_extent" value="EPSG:4326" />
+			<parameter name="table" type="string" key="table" value="view_de_berlin_topo" />
+			<parameter name="extent" type="string" key="extent" value="13.0840921 52.3351013,13.7608838 52.6664428" />
+		</parameters>
+		<resources>
+			<rref ref="osm2po_de_berlin" enabled="true" />
+		</resources>
+	</profile>
+
+	<profile name="92ca884a680bba38e75a59000b8c5fdb" title="OSM - Nordrhein-Westfalen (Germany)">
+		<description>Pedestrian routing for Nordrhein-Westfalen, Germany (OSM)</description>
+		<parameters>
+			<parameter name="srid_in" type="integer" key="srid" value="EPSG:4326" />
+			<parameter name="srid_extent" type="integer" key="srid_extent" value="EPSG:4326" />
+			<parameter name="table" type="string" key="table" value="view_de_nrw_topo" />
+			<parameter name="extent" type="string" key="extent" value="5.8659464 50.3239364,9.4739899 52.5360804" />
+		</parameters>
+		<resources>
+			<rref ref="osm2po_de_nrw" enabled="true" />
+		</resources>
+	</profile>
+
+	<profile name="578ed5a4eecf5a15803abdc49f6152d6" title="OSM - Japan">
+		<description>Pedestrian routing for Japan (OSM)</description>
+		<parameters>
+			<parameter name="srid_in" type="integer" key="srid" value="EPSG:4326" />
+			<parameter name="srid_extent" type="integer" key="srid_extent" value="EPSG:4326" />
+			<parameter name="table" type="string" key="table" value="view_edges_ja" />
+			<parameter name="extent" type="string" key="extent" value="129.194092 30.054586,145.82 45.5223" />
+		</parameters>
+		<resources>
+			<rref ref="pgrouting_ja" enabled="true" />
+		</resources>
+	</profile>
+
+	<profile name="c6698873b4f14b995c9e66ad0d8f29e3" title="OSM - California (United States)">
+		<description>Pedestrian routing for California, USA (OSM)</description>
+		<parameters>
+			<parameter name="srid_in" type="integer" key="srid" value="EPSG:4326" />
+			<parameter name="srid_extent" type="integer" key="srid_extent" value="EPSG:4326" />
+			<parameter name="table" type="string" key="table" value="view_us_ca_topo" />
+			<parameter name="extent" type="string" key="extent" value="-124.402723 32,-114.138197 42.018298" />
+		</parameters>
+		<resources>
+			<rref ref="osm2po_us_ca" enabled="true" />
+		</resources>
+	</profile>
+
+</profiles>

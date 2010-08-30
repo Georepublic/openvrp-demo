@@ -226,7 +226,7 @@ Ext.onReady(function() {
 	 * Tabpanel Definition
 	 */
 	GRP.tab.account = new Ext.Panel({
-		title: 'Customer Panel', 
+		title: 'Account Panel', 
 		iconCls: 'tab-user',
 		id: 'account',
 		region: 'center',

@@ -14,7 +14,7 @@ Ext.onReady(function() {
 					pointRadius: 32
 				}, OpenLayers.Feature.Vector.style["default"]), 
 			'select': {
-				pointRadius: 48
+				pointRadius: 32
 			}, 
 			'edit': {
 				strokeWidth: 7,
@@ -36,13 +36,6 @@ Ext.onReady(function() {
 			Ext.getCmp('wkt-depot').setValue(wkt.write(evt.feature));
 		}
 	});
-	
-	//GRP.layer.depot.drawControl = new OpenLayers.Control.DrawFeature(
-	//	GRP.layer.depot,
-	//	OpenLayers.Handler.Point,
-	//	{ handlerOptions: {"single": true, "stopSingle": true} }
-	//);
-	//GRP.map.addControl(GRP.layer.depot.drawControl);
 	
 	/**
 	 * Store Definition
@@ -99,10 +92,21 @@ Ext.onReady(function() {
 			singleSelect: true,
 			listeners: {
 				rowselect: function(sm, row, rec) {
+
+					rec.data.feature.geometry.transform(
+						new OpenLayers.Projection("EPSG:900913"),
+						GRP.projection
+					);
+
 					// Load record
 					GRP.form.depot.form.loadRecord(rec);
 					Ext.getCmp('wkt-depot').setValue(wkt.write(rec.data.feature));
 					
+					rec.data.feature.geometry.transform(
+						GRP.projection,
+						new OpenLayers.Projection("EPSG:900913")
+					);
+
 					// Zoom to feature
 					var a = rec.data.feature.geometry.getBounds();
 					GRP.map.panTo(a.getCenterLonLat());
@@ -180,15 +184,13 @@ Ext.onReady(function() {
 			}]
 		}],
 		buttons: [{
-			text: 'Save',
+			text: 'Save changes',
 			formBind: true,
 			type: 'submit',
 			iconCls: 'button-save',
 			handler: function(){ 
-				var rec = GRP.grid.depot.getSelectionModel().getSelected();
-				
-				if(rec.data.id > 0) {
-					
+				var rec = GRP.grid.depot.getSelectionModel().getSelected();	
+				if(rec.data.id > 0) {	
 					GRP.form.depot.form.submit({
 						url: GRP.baseURL + 'depot/update/' + rec.data.id,
 						success: function(form,action){ 
@@ -197,7 +199,8 @@ Ext.onReady(function() {
 						},            
 						failure: function(form,action){ console.info(action); }
 					});
-				}
+				} 
+				
 			}
 		},{
 			text: 'Add as new',
@@ -221,9 +224,7 @@ Ext.onReady(function() {
 			iconCls: 'button-delete',
 			handler: function(){ 
 				var rec = GRP.grid.depot.getSelectionModel().getSelected();
-
 				if(rec.data.id > 0) {
-					
 					GRP.form.depot.form.submit({
 						url: GRP.baseURL + 'depot/delete/' + rec.data.id,
 						success: function(form,action){ 

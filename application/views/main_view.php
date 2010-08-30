@@ -68,10 +68,12 @@
 		var wkt  = new OpenLayers.Format.WKT();
 		var kml  = new OpenLayers.Format.KML();
 		var json = new OpenLayers.Format.GeoJSON();
+		var popup;
 		
-		var logout = 'User: [<?=$account?>] | <?=anchor("login/logout", "Logout");?>';
+		var logout = '<b>User</b>: <?=$account?> | <?=anchor("login/logout", "Logout");?>';
 
 		GRP.baseURL = "<?=base_url();?>";
+		GRP.ProxyURL = "proxy.php?url=http://engine.openvrp.com:8585/2.0.0";
 		
 		Ext.BLANK_IMAGE_URL = '<?=base_url();?>resources/ext-3.2.1/resources/images/default/s.gif';
 
@@ -129,6 +131,7 @@
 					border: true,
 					enableTabScroll: true,
 					defaults: {autoScroll:true},
+					id: 'tab-panel',
 					items: [
 						GRP.tab.planner,
 						GRP.tab.order,

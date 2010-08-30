@@ -30,7 +30,7 @@ class Depot extends Controller {
 			$this->db->where('id', $id = $this->uri->segment(3));
 		}
 		
-		$query = $this->db->get('json_depots');
+		$query = $this->db->get('json_depot');
 		$this->output->set_output($this->_encode($query));
 	}
 
@@ -38,9 +38,9 @@ class Depot extends Controller {
 	 * Create feature
 	 */ 
 	function create() {
-		$sql = "INSERT INTO depot(name,the_geom) VALUES( ?, ST_transform(ST_GeometryFromText( ? ,900913),4326))";
+		$sql = "INSERT INTO crud_depot(name,the_geom) VALUES( ?, ST_GeometryFromText( ? ,4326))";
 		$data = array(
-		   'name'   => $this->input->post('name'),
+		   'name' => $this->input->post('name'),
 		   'the_geom' => $this->input->post('wkt')
 		);
 		$this->db->query($sql, $data); 
@@ -51,9 +51,9 @@ class Depot extends Controller {
 	 * Update feature
 	 */ 
 	function update() { 
-		$sql = "UPDATE depot SET name = ?, the_geom = ST_transform(ST_GeometryFromText( ? ,900913),4326), updated = ? WHERE id = ?";
+		$sql = "UPDATE crud_depot SET name = ?, the_geom = ST_GeometryFromText( ? ,4326), updated = ? WHERE id = ?";
 		$data = array(
-		   'name'   => $this->input->post('name'),
+		   'name' => $this->input->post('name'),
 		   'the_geom' => $this->input->post('wkt'),
 		   'updated' => 'now()',
 		   'id' => $this->uri->segment(3)
@@ -67,7 +67,7 @@ class Depot extends Controller {
 	 */ 
 	function delete() { 
 		$this->db->where('id', $id = $this->uri->segment(3));
-		$this->db->delete('depot'); 
+		$this->db->delete('crud_depot'); 
 		$this->output->set_output("{success: true}");
 	}
 	
@@ -102,6 +102,4 @@ class Depot extends Controller {
 		return json_encode($json);
 	}
 }
-
-
 ?>

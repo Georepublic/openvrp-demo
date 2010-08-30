@@ -86,10 +86,10 @@ class Account extends Controller {
 				//"geometry"   => json_decode($row->geometry),
 				"type"       => "Feature",
 				"properties" => array(
-					"id"       => $row->id,
-					"name" => $row->name,
-					"created"  => $row->created,
-					"updated"  => $row->updated
+					"id"       	=> $row->id,
+					"name" 		=> $row->name,
+					"created"  	=> $row->created,
+					"updated"  	=> $row->updated
 				),
 				"id"         => $row->id
 			);
