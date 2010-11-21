@@ -54,19 +54,19 @@
 			items:[{
 				xtype: 'panel',
 				height: 40,
-				html: "<?=$this->session->flashdata('message');?>" || "<b>Please fill in your username and password und click the login button.</b>"
+				html: "<?=$this->session->flashdata('message');?>" || "<b>Please fill in your username and password und click the login button (demo/demo).</b>"
 			},{ 
 				xtype: 'textfield',
 				fieldLabel: "Username", 
 				id: 'userField',
 				name: 'username', 
-				allowBlank: false 
+				emptyText: 'demo'
 			},{ 
 				xtype: 'textfield',
 				fieldLabel: "Password", 
 				name: 'password', 
-				inputType: 'password', 
-				allowBlank: false 
+				emptyText: 'demo',
+				inputType: 'password'
 			}],
 			buttons:[{ 
 				text: "Login",

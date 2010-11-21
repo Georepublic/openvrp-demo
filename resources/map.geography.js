@@ -35,6 +35,15 @@ Ext.onReady(function() {
 	 * Layer Definition
 	 */
 	GRP.map.addLayers([
+		new OpenLayers.Layer.Google(" Google Streets",
+			{sphericalMercator: true, numZoomLevels: 19}
+		),
+		new OpenLayers.Layer.Google(" Google Satellite",
+			{type: G_SATELLITE_MAP, sphericalMercator: true, numZoomLevels: 19}
+		),
+		new OpenLayers.Layer.Google(" Google Hybrid",
+			{type: G_HYBRID_MAP, sphericalMercator: true, numZoomLevels: 19}
+		),
 		new OpenLayers.Layer.OSM(" OSM Mapnik"),
 		new OpenLayers.Layer.TMS(" OSM Cycle Map", 
 			["http://a.andy.sandbox.cloudmade.com/tiles/cycle/",
@@ -47,15 +56,6 @@ Ext.onReady(function() {
 		new OpenLayers.Layer.WMS(" Blue Marble",
 			"http://maps.opengeo.org/geowebcache/service/wms",
 			{layers: "bluemarble"}
-		),
-		new OpenLayers.Layer.Google(" Google Streets",
-			{sphericalMercator: true, numZoomLevels: 19}
-		),
-		new OpenLayers.Layer.Google(" Google Satellite",
-			{type: G_SATELLITE_MAP, sphericalMercator: true, numZoomLevels: 19}
-		),
-		new OpenLayers.Layer.Google(" Google Hybrid",
-			{type: G_HYBRID_MAP, sphericalMercator: true, numZoomLevels: 19}
 		)
 	]);
 	
