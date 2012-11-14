@@ -273,20 +273,14 @@ Ext.onReady(function() {
 	/**
 	 * addToPopup function
 	 */
-    function addToPopup(loc) {
+    function addToPopup(loc) {    	
     
-		loc.transform(
-			new OpenLayers.Projection("EPSG:900913"),
-			GRP.projection
-		);							
-        
         // create the popup if it doesn't exist
         if(!popup) {
         
             popup = new GeoExt.Popup({
-                title: "Set Point",
+                title: "Set Location",
                 id: "map-popup",
-                width: 260,
                 maximizable: false,
                 collapsible: false,
                 map: GRP.map,
@@ -295,48 +289,40 @@ Ext.onReady(function() {
                     close: function() { popup = null; }
                 },
 				buttons: [{
-					text: 'Start/Depot',
-					handler: function(){ 
-					
+					text: 'Depot',
+					id: 'button-add-depot',
+					handler: function(){ 		
 						feature.geometry.transform(
 							new OpenLayers.Projection("EPSG:900913"),
 							GRP.projection
-						);
-
-						switch(Ext.getCmp('tab-panel').getActiveTab().getId()){
-							case 'order':
-								Ext.getCmp('wkt-order-start').setValue(wkt.write(feature));
-								break;
-								
-							case 'depot':
-								Ext.getCmp('wkt-depot').setValue(wkt.write(feature));
-								break;
-						}
-						
+						);			        
+						Ext.getCmp('wkt-depot').setValue(wkt.write(feature));		
 						popup.close();
 						popup = null;
 					}
 				},{
-					text: 'End',
+					text: 'Pickup',
+					id: 'button-add-pickup',
 					handler: function(){ 
-
 						feature.geometry.transform(
 							new OpenLayers.Projection("EPSG:900913"),
 							GRP.projection
-						);
-
-						switch(Ext.getCmp('tab-panel').getActiveTab().getId()){
-							case 'order':
-								Ext.getCmp('wkt-order-end').setValue(wkt.write(feature));
-								break;
-						}
-
+						);			        
+						Ext.getCmp('wkt-order-start').setValue(wkt.write(feature));
+						getRoute();			        
 						popup.close();
 						popup = null;
 					}
 				},{
-					text: 'Close',
+					text: 'Dropoff',
+					id: 'button-add-dropoff',
 					handler: function(){ 
+						feature.geometry.transform(
+							new OpenLayers.Projection("EPSG:900913"),
+							GRP.projection
+						);			        
+						Ext.getCmp('wkt-order-end').setValue(wkt.write(feature));
+						getRoute();			        
 						popup.close();
 						popup = null;
 					}
@@ -344,24 +330,73 @@ Ext.onReady(function() {
             });
         }
         
-        //popup.setTitle("You clicked " + loc.lon.toFixed(2) + ", " + loc.lat.toFixed(2) );
+        switch(Ext.getCmp('tab-panel').getActiveTab().getId()) {
+        	case "depot":
+        		Ext.getCmp('button-add-dropoff').hide();
+        		Ext.getCmp('button-add-pickup').hide();
+        		Ext.getCmp('button-add-depot').show();
+        		break;
+        	
+        	case "order":
+        		Ext.getCmp('button-add-dropoff').show();
+        		Ext.getCmp('button-add-pickup').show();
+        		Ext.getCmp('button-add-depot').hide();
+        		break;       	
+        }
 
-		loc.transform(
-			GRP.projection,
-			new OpenLayers.Projection("EPSG:900913")
-		);	
-								
-        // This is awkward, but for now we need to create a feature to update
-        // the popup position.  TODO: fix this for 1.0
-        var feature = new OpenLayers.Feature.Vector(
-            new OpenLayers.Geometry.Point(loc.lon, loc.lat)
-        );  
-        
-        popup.feature = feature;        
-        popup.doLayout();
-        popup.show();
+        switch(Ext.getCmp('tab-panel').getActiveTab().getId()) {
+        	case "depot":
+        	case "order":
+				// This is awkward, but for now we need to create a feature to update
+				// the popup position.  TODO: fix this for 1.0
+				var feature = new OpenLayers.Feature.Vector(
+				    new OpenLayers.Geometry.Point(loc.lon, loc.lat)
+				);  
+				
+				popup.feature = feature;        
+				popup.doLayout();
+				popup.show();
+        		break;       	
+        }
     }
+	
+	/**
+	 * getRoute function
+	function getRoute() {
+		var start = Ext.getCmp('wkt-order-start');
+		var end   = Ext.getCmp('wkt-order-end');
+		
+		if(start.isValid() && end.isValid()) {
+			
+			var url = GRP.ProxyURL + '/' 
+					+ capabilities.data.items[0].data.name
+					+ '/route.geojson';
+					
+			start = start.getValue().split(')');
+			end   = end.getValue().split(')');
 
+			start = start[0].split('(');
+			end   = end[0].split('(');
+
+			var json = { 
+				points: [ start[1], end[1]	], 
+				crs: GRP.projection
+			};
+
+			GRP.store.route.proxy.protocol.options.url = 
+						url + '&json=' + Ext.encode(json);
+						
+			GRP.store.route.load({ 
+				add: true,
+				params: {
+					order_id: 0
+				}
+			});	
+
+		}
+	}
+	 */
+	 
 });
 
 /**

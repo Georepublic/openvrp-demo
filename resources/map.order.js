@@ -10,18 +10,30 @@ Ext.onReady(function() {
 		styleMap: new OpenLayers.StyleMap({
 			'default': OpenLayers.Util.applyDefaults({
 				strokeWidth: 4,
-				strokeColor: '#00FFFF',
-				strokeOpacity: 0.5,
-				strokeDashstyle: 'solid'
+				strokeColor: '#E37A09'
 				}, OpenLayers.Feature.Vector.style["default"]), 
 			'select': {
-				strokeWidth: 6,
-				strokeOpacity: 1.0,
+				strokeColor: '#E37A09'
 			}
 		})
 	});
 	GRP.map.addLayer(GRP.layer.order);
 	
+	/**
+	GRP.layer.routes = new OpenLayers.Layer.Vector(" Route Layer",{
+		styleMap: new OpenLayers.StyleMap({
+			'default': OpenLayers.Util.applyDefaults({
+				strokeWidth: 4,
+				strokeColor: '#E37A09'
+				}, OpenLayers.Feature.Vector.style["default"]), 
+			'select': {
+				strokeColor: '#E37A09'
+			}
+		})
+	});
+	GRP.map.addLayer(GRP.layer.routes);
+	 */
+
 	/**
 	 * Control Definition
 	 */
@@ -48,7 +60,7 @@ Ext.onReady(function() {
 	});
 	
 	/**
-	 * Store Definition
+	 * Store "order"
 	 */
 	GRP.store.order = new GeoExt.data.FeatureStore({
 		layer: GRP.layer.order,
@@ -77,6 +89,46 @@ Ext.onReady(function() {
 	GRP.store.order.setDefaultSort('name', 'asc');
 	GRP.store.order.load();
 	
+	/**
+	 * Store "route"
+	GRP.store.route = new GeoExt.data.FeatureStore({
+		layer: GRP.layer.routes,
+		root: 'features',
+		fields: [
+			{ name: 'order_id', type: 'int' }
+		],
+		proxy: new GeoExt.data.ProtocolProxy({
+			protocol: new OpenLayers.Protocol.HTTP({
+				url: GRP.ProxyURL,
+				format: new OpenLayers.Format.GeoJSON()
+			})
+		}),
+		listeners: {
+			beforeload: function(store,options) {
+				Ext.MessageBox.show({
+					title: 'Route request',
+					msg: 'Waiting for route ...',
+					progressText: 'Connecting ...',
+					width: 300,
+					wait: true,
+					waitConfig: {interval:200},
+					//icon: 'ext-mb-download', //custom class in msg-box.html
+					animEl: 'wait-capabilities'
+				});
+			},
+			load: function(store, records, options){
+				Ext.each(records, function(item){
+					item.set('order_id', 100);
+					item.commit();
+				});
+				
+				Ext.MessageBox.hide();
+			}
+		}
+	});
+	 */
+
+
 	/**
 	 * Grid Definition
 	 */
@@ -244,7 +296,12 @@ Ext.onReady(function() {
 					name: 'wkt_start',
 					emptyText: 'WKT point format',
 					id: 'wkt-order-start',
-					allowBlank: false
+					allowBlank: false,
+					listeners: {
+						change: function(field, newval, oldval){
+							getRoute();			        
+						}
+					}
 				}]
 			},{
 				columnWidth: .5,
@@ -304,7 +361,12 @@ Ext.onReady(function() {
 					name: 'wkt_goal',
 					emptyText: 'WKT point format',
 					id: 'wkt-order-end',
-					allowBlank: false
+					allowBlank: false,
+					listeners: {
+						change: function(field, newval, oldval){
+							getRoute();			        
+						}
+					}
 				}]
 			}]
 		}],
@@ -399,5 +461,4 @@ Ext.onReady(function() {
 		layoutConfig: { align : 'stretch', pack  : 'start' },
 		items: [ GRP.grid.order, GRP.form.order ]
 	});
-	
 });

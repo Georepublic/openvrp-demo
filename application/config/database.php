@@ -37,10 +37,10 @@
 $active_group = "default";
 $active_record = TRUE;
 
-$db['default']['hostname'] = "localhost";
-$db['default']['username'] = "georepublic";
+$db['default']['hostname'] = "demoserver.eq6.georepublic.net";
+$db['default']['username'] = "postgres";
 $db['default']['password'] = "";
-$db['default']['database'] = "mobility";
+$db['default']['database'] = "openvrp";
 $db['default']['dbdriver'] = "postgre";
 $db['default']['port']     = 5432;
 $db['default']['dbprefix'] = "";
